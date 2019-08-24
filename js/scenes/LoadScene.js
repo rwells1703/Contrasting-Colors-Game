@@ -6,7 +6,8 @@ export class LoadScene extends Phaser.Scene{
 	}
 
 	preload(){
-        this.load.spritesheet('player', 'assets/sprites/player.png', {frameWidth: 48, frameHeight: 48});		
+		this.load.spritesheet('player', 'assets/sprites/player.png', {frameWidth: 64, frameHeight: 64});
+		this.load.spritesheet('platform', 'assets/sprites/wall.png', {frameWidth: 64, frameHeight: 64});		
 	}
 
 	create(){
