@@ -6,6 +6,8 @@ export class MenuScene extends Phaser.Scene{
 	}
 
 	create(){
+		this.btnSoundFX = this.sound.add("buttonSound");
+
 		this.title = this.add.text(100, 100, "Main Menu", {font:"40px Impact"});
 
 
@@ -14,13 +16,19 @@ export class MenuScene extends Phaser.Scene{
 		this.startButton.setInteractive()
 					.on("pointerover", ()=>this.startButton.setColor("red"))
 					.on("pointerout", ()=>this.startButton.setColor("white"))
-					.on("pointerdown", ()=>this.scene.start(SCENES.GAMESCENE));
+					.on("pointerdown", ()=>{
+						this.btnSoundFX.play();
+						this.scene.start(SCENES.GAMESCENE)
+					});
 
 
 		this.helpButton = this.add.text(100, 230, "Help", {font:"20px Impact"});
 		this.helpButton.setInteractive()
 					.on("pointerover", ()=>this.helpButton.setColor("blue"))
-					.on("pointerout", ()=>this.helpButton.setColor("white"));
+					.on("pointerout", ()=>this.helpButton.setColor("white"))
+					.on("pointerdown", ()=>{
+						this.btnSoundFX.play();
+					});
 
 		console.log(this.title);
 		this.tweens.add({
@@ -31,6 +39,8 @@ export class MenuScene extends Phaser.Scene{
 			ease: "Elastic",
 			repeat: -1
 		});
+
+		this.credits = this.add.text(100, 500, "Developed by me and the boys");
 
 	}
 }
