@@ -1,8 +1,8 @@
+import {SCENES} from "../constants.js";
+
 export class LoadScene extends Phaser.Scene{
 	constructor(){
-		super({
-			key: "LoadScene"
-		});
+		super({key: SCENES.LOADSCENE});
 	}
 
 	preload(){
@@ -13,6 +13,6 @@ export class LoadScene extends Phaser.Scene{
 	}
 
 	create(){
-		this.scene.start('GameScene');
+		this.scene.start(SCENES.MENUSCENE);
 	}
 }

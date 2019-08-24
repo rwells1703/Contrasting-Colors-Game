@@ -1,4 +1,4 @@
-import {COLORS, TEXTURE_SIZE} from '../constants.js'
+import {COLORS, SCENES, TEXTURE_SIZE} from '../constants.js'
 import {level1} from '../levels.js'
 import {Player} from '../entities/player.js'
 import {Enemy} from '../entities/enemy.js'
@@ -6,12 +6,7 @@ import {PaintBlob} from '../entities/paintBlob.js'
 
 export class GameScene extends Phaser.Scene{
 	constructor(){
-		super({
-			key: "GameScene"
-		});
-	}
-
-	preload(){
+		super({key: SCENES.GAMESCENE});
 	}
 
 	create(){
