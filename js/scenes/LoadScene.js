@@ -1,4 +1,4 @@
-class LoadScene extends Phaser.Scene{
+export class LoadScene extends Phaser.Scene{
 	constructor(){
 		super({
 			key: "LoadScene"
@@ -6,8 +6,10 @@ class LoadScene extends Phaser.Scene{
 	}
 
 	preload(){
+        this.load.spritesheet('player', 'assets/sprites/player.png', {frameWidth: 48, frameHeight: 48});		
 	}
 
 	create(){
+		this.scene.start('GameScene');
 	}
 }
