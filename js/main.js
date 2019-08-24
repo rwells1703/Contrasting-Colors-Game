@@ -1,5 +1,6 @@
-import {LoadScene} from './scenes/LoadScene.js'
-import {GameScene} from './scenes/GameScene.js'
+import {LoadScene} from './scenes/LoadScene.js';
+import {GameScene} from './scenes/GameScene.js';
+import {GFS} from "./constants.js";
 
 let config = {
 	type: Phaser.AUTO,
@@ -8,7 +9,7 @@ let config = {
     physics: {
         default: "arcade",
             arcade: {
-                gravity: {y: 300},
+                gravity: {y: GFS},
                 debug: false
             }
     },

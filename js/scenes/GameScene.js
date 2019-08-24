@@ -17,8 +17,12 @@ export class GameScene extends Phaser.Scene{
 //         this.blobs.push(new PaintBlob(this, COLORS.blue, 200, 150, 20,-150));
 //         this.blobs.push(new PaintBlob(this, COLORS.blue, 200, 450, 20,-150));
 //         this.enemies.push(new Enemy(this, COLORS.yellow, 200, 150, 20,-150));
+        this.platforms = this.physics.add.staticGroup();
+        this.physics.add.collider(this.player,this.platforms);
 	}
 	update(){
+        this.player.update();
+
         for(let enemy of this.enemies){
             enemy.update();
         }
