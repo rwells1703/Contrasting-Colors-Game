@@ -4,4 +4,10 @@ class LoadScene extends Phaser.Scene{
 			key: "LoadScene"
 		});
 	}
+
+	preload(){
+	}
+
+	create(){
+	}
 }
