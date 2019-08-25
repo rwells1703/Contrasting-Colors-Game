@@ -27,7 +27,7 @@ export class GameScene extends Phaser.Scene{
 
 		this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop.
 		this.input.on('pointerdown',function (pointer){
-			utils.hurlBlob(this,this.blobs,this.player.color,this.player.sprite.x,this.player.sprite.y,pointer.x,pointer.y,CON.PBLOBLAUNCH)
+			utils.hurlBlob(this,this.blobs,this.player.color,this.player.sprite.x,this.player.sprite.y,pointer.worldX,pointer.worldY,CON.PBLOBLAUNCH)
 		},this);
 
 		

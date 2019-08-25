@@ -18,7 +18,7 @@ export const XDROPOFF = 0.1;
 export const GFS = 1500;
 export const JUMPVEOLCITY = -700;
 
-export const PBLOBLAUNCH = 150;
+export const PBLOBLAUNCH = 800;
 export const BLOBOFFSETCOEFF = 32;
 
 export const MAX_PLAYER_HEALTH = 3;
