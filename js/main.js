@@ -15,7 +15,7 @@ let config = {
         default: "arcade",
             arcade: {
                 gravity: {y: GFS},
-                debug: false
+                debug: true
             }
     },
 	scene: [LoadScene, MenuScene, GameScene]

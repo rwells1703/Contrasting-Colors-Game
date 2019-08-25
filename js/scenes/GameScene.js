@@ -1,8 +1,9 @@
 import {COLORS, SCENES, TEXTURE_SIZE} from '../constants.js'
 import {level1} from '../levels.js'
 import {Player} from '../entities/player.js'
-import {Enemy} from '../entities/enemy.js'
+import * as Enemies from '../entities/enemy.js'
 import {PaintBlob} from '../entities/paintBlob.js'
+import * as EntityLogic from '../entities/entityLogic.js';
 
 export class GameScene extends Phaser.Scene{
 	constructor(){
@@ -18,8 +19,15 @@ export class GameScene extends Phaser.Scene{
 		this.player = new Player(this, COLORS.red, 10, positionToPx(7), positionToPx(2));
 
 		this.physics.add.collider(this.player.sprite, this.platforms);
-		this.blobs = [];//Add blobs using blobs.push, remove using blobs.pop.
-		this.enemies = [];//Add enemies using enemies.push, remove using enemies.pop.
+
+
+		//create Enemy group
+		this.enemies = this.physics.add.group();
+		this.enemiesArr = [];
+		this.enemiesArr.push(new Enemies.Enemy(this.enemies, COLORS.green, 100, positionToPx(9), positionToPx(2)));
+		this.physics.add.collider(this.enemies, this.platforms);
+
+		this.physics.add.overlap(this.enemies, this.blobs, EntityLogic.checkColors);
 
 		//this.cameras.main.setBounds(0, 0, level1.width, level1.height);
 		this.cameras.main.startFollow(this.player.sprite);
@@ -27,8 +35,7 @@ export class GameScene extends Phaser.Scene{
 
 	update(){
         this.player.update();
-
-        for(let enemy of this.enemies){
+        for(let enemy of this.enemiesArr){
             enemy.update();
         }
     }
@@ -53,5 +60,5 @@ function loadLevel(scene, platforms){
 }
 
 function positionToPx(position) {
-	return TEXTURE_SIZE/2 + position*TEXTURE_SIZE
+	return TEXTURE_SIZE/2 + position*TEXTURE_SIZE;
 }
