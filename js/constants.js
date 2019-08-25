@@ -8,10 +8,10 @@ export const COLORS = {"white":0, "black":1, "red":2, "blue":3, "yellow":4, "pur
 
 export const TEXTURE_SIZE = 64;
 
-export const DRAGCOEFF = 0.1;
+export const DRAGCOEFF = 0.8;
 export const FRICTCOEFF = 0.3;
-export const LOCOMOTIVE = 50;
-export const AIRCOEFF = 0.25;
-export const GFS = 300;
-export const JUMPFORCE = -300;
+export const LOCOMOTIVE = 500;
+export const AIRCOEFF = 0.2;
+export const GFS = 1500;
+export const JUMPVEOLCITY = -700;
 export const XDROPOFF = 0.1;

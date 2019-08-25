@@ -3,7 +3,7 @@ import {MenuScene} from './scenes/MenuScene.js';
 import {GameScene} from './scenes/GameScene.js';
 import {GFS} from "./constants.js";
 
-let config = {
+let config = {	
 	type: Phaser.AUTO,
 	scale: {
 		mode: Phaser.Scale.FIT,

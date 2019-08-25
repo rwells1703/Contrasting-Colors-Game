@@ -1,21 +1,23 @@
 import {COLORS, SCENES, TEXTURE_SIZE} from '../constants.js'
-import {level1} from '../levels.js'
 import {Player} from '../entities/player.js'
 import {Enemy} from '../entities/enemy.js'
 import {PaintBlob} from '../entities/paintBlob.js'
+import {loadLevel, positionToPx} from "../levels.js";
 
 export class GameScene extends Phaser.Scene{
 	constructor(){
 		super({key: SCENES.GAMESCENE});
 	}
 
+	preload(){
+		// Loads level 1
+		this.load.text('level1', 'assets/levels/level1.bmp');
+	}
+
 	create(){
 		// Array of platform sprites that make up the design of the level
 		this.platforms = this.physics.add.staticGroup();
-		loadLevel(this, this.platforms);
-		
-		// Create the player
-		this.player = new Player(this, COLORS.red, 10, positionToPx(7), positionToPx(2));
+		loadLevel(this, this.platforms, 'level1');
 
 		this.physics.add.collider(this.player.sprite, this.platforms);
 		this.blobs = [];//Add blobs using blobs.push, remove using blobs.pop.
@@ -32,26 +34,4 @@ export class GameScene extends Phaser.Scene{
             enemy.update();
         }
     }
-}
-
-// Loads the positions of the platforms in the platforms array
-function loadLevel(scene, platforms){
-	let i = 0;
-	while (i < level1.height) {
-		let j = 0;
-		while (j < level1.width) {
-			if (level1.platforms[i][j] == 1)
-				{
-					platforms.create(positionToPx(j), positionToPx(i), 'platform');
-				}
-				
-			j += 1;
-		}
-
-		i += 1;
-	}
-}
-
-function positionToPx(position) {
-	return TEXTURE_SIZE/2 + position*TEXTURE_SIZE
 }

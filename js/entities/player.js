@@ -5,65 +5,52 @@ export class Player {
         this.color = color;
         this.health = health;
         this.sprite = scene.physics.add.sprite(x, y, 'player');
-        this.sprite.setBounce(0.2);
+        this.sprite.setBounce(0.15);
         this.cursors = scene.input.keyboard.createCursorKeys();
     }
 
-    	update(){
+	update() {
+		let direction;
+		let velta;
 
-    	let direction;
-    	let velta;
+		// Gets the direction of player movement from the arrow keys
+		if (this.cursors.left.isDown) {
+			direction = -1;
+		} else if (this.cursors.right.isDown) {
+			direction = 1;
+		} else {
+			direction = 0;
+		}
 
-    	if (this.cursors.left.isDown)
-    	{
-        	direction = -1;
-    	}
-    	else if (this.cursors.right.isDown)
-    	{
-        	direction = 1;
-    	}
-    	else
-    	{
-        	direction = 0
-    	}
+		// Applies jumping velocity if on the floor
+		if (this.cursors.up.isDown && this.sprite.body.touching.down) {
+			this.sprite.setVelocityY(CON.JUMPVEOLCITY);
+		}
 
-    	if (this.cursors.up.isDown && this.sprite.body.touching.down)
-    	{
-        	this.sprite.setVelocityY(CON.JUMPFORCE);
-    	}
+		let xvel = this.sprite.body.velocity.x;
 
-    	let xvel = this.sprite.body.velocity.x;
+		// Applies the direction of travel
+		velta = CON.LOCOMOTIVE*direction;
 
-    	velta = CON.LOCOMOTIVE
+		if (this.sprite.body.touching.down) {
+			// Applies friction to change of velocity if on ground
+			velta = velta * CON.FRICTCOEFF;
+		} else {
+			// Otherwise applied air resistance
+			velta = velta * CON.AIRCOEFF;
+		}
 
+		// Changes player velocity by velta
+		xvel = xvel + velta;
+		// Applies drag to player velocity
+		xvel = xvel * CON.DRAGCOEFF;
 
-    	if(!this.sprite.body.touching.down){
-        	    velta = velta*CON.AIRCOEFF
-    	}
-    	
-    	xvel = xvel + velta*direction;
+		// If the magnitude of the velocity is below the critical value, just set it to 0
+		if (Math.abs(xvel) < CON.XDROPOFF) {
+			xvel = 0;
+		}
 
-    	//xvel = this.applyResistances(xvel);
-
-    	this.sprite.setVelocityX(xvel)
-}
-	applyResistances(xvel)
-{
-    let direction = 1;
-    if(xvel<0){
-        direction = -1
-    }
-
-    xvel = xvel - (xvel*xvel*direction*CON.DRAGCOEFF)
-
-    if(this.sprite.body.touching.down){
-        xvel = xvel - (xvel*xvel*direction*CON.FRICTCOEFF)
-
-    }
-
-    if(Math.abs(xvel)<CON.XDROPOFF){
-        xvel = 0
-    }
-    return xvel;
-}
+		// Apply velocity to the sprite itself
+		this.sprite.setVelocityX(xvel);
+	}
 }
