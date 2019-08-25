@@ -28,6 +28,11 @@ export class GameScene extends Phaser.Scene{
 		this.enemiesArr.push(new Enemies.Enemy(this.enemies, CON.COLORS.green, 100, positionToPx(9), positionToPx(2)));
 		this.physics.add.collider(this.enemies, this.platforms);
 
+		//Create fountains group
+		this.fountains = this.physics.add.staticGroup();
+		this.physics.add.overlap(this.player,this.fountains,null,this);
+
+
 		// this.physics.add.overlap(this.enemies, this.blobs, EntityLogic.checkColors);
 
 		//this.cameras.main.setBounds(0, 0, level1.width, level1.height);
@@ -36,6 +41,7 @@ export class GameScene extends Phaser.Scene{
 		this.input.on('pointerdown',function (pointer){
 			blobHandling.hurlBlob(this,this.blobs,this.player.color,this.player.sprite.x,this.player.sprite.y,pointer.x,pointer.y,CON.PBLOBLAUNCH,CON.BLOBOFFSETCOEFF)
 		},this)
+
 	}
 
 	update(){
@@ -66,4 +72,8 @@ function loadLevel(scene, platforms){
 
 function positionToPx(position) {
 	return CON.TEXTURE_SIZE/2 + position*CON.TEXTURE_SIZE
+}
+
+function changePlayerColor(player,fountain){
+	this.player.changeColor(fountain.data.color());
 }

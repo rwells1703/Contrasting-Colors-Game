@@ -1,6 +1,8 @@
-export class Enemy {
+import {ColorEntity} from './colorEntity.js';
+
+export class Enemy extends ColorEntity{
     constructor (group, color, health, x, y) {
-        this.color = color;
+        super(color);
         this.health = health;
         this.sprite = group.create(x, y, "enemy");
         this.sprite.setBounce(0.2);

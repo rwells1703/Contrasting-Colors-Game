@@ -1,12 +1,14 @@
 import * as CON from "../constants.js";
+import {ColorEntity} from './colorEntity.js'
 
-export class Player {
+export class Player extends ColorEntity {
     constructor (scene, color, health, x, y) {
-        this.color = color;
+        super(color);
         this.health = health;
         this.sprite = scene.physics.add.sprite(x, y, 'player');
         this.sprite.setBounce(0.2);
         this.cursors = scene.input.keyboard.createCursorKeys();
+        this.sprite.data = this;
     }
 
     update(){
@@ -46,7 +48,8 @@ export class Player {
     	//xvel = this.applyResistances(xvel);
 
     	this.sprite.setVelocityX(xvel)
-}
+    }
+
 	applyResistances(xvel){
     let direction = 1;
     if(xvel<0){
@@ -64,8 +67,5 @@ export class Player {
         xvel = 0
     }
     return xvel;
-}
-    launchBlob(){
-
     }
 }
