@@ -1,12 +1,13 @@
-import {COLORS, SCENES, TEXTURE_SIZE} from '../constants.js'
+import * as CON from '../constants.js'
 import {level1} from '../levels.js'
 import {Player} from '../entities/player.js'
 import {Enemy} from '../entities/enemy.js'
 import {PaintBlob} from '../entities/paintBlob.js'
+import * as blobHandling from '../entities/blobHandler.js'
 
 export class GameScene extends Phaser.Scene{
 	constructor(){
-		super({key: SCENES.GAMESCENE});
+		super({key: CON.SCENES.GAMESCENE});
 	}
 
 	create(){
@@ -15,14 +16,18 @@ export class GameScene extends Phaser.Scene{
 		loadLevel(this, this.platforms);
 		
 		// Create the player
-		this.player = new Player(this, COLORS.red, 10, positionToPx(7), positionToPx(2));
+		this.player = new Player(this, CON.COLORS.red, 10, positionToPx(7), positionToPx(2));
 
 		this.physics.add.collider(this.player.sprite, this.platforms);
-		this.blobs = [];//Add blobs using blobs.push, remove using blobs.pop.
+		this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop.
 		this.enemies = [];//Add enemies using enemies.push, remove using enemies.pop.
 
 		//this.cameras.main.setBounds(0, 0, level1.width, level1.height);
 		this.cameras.main.startFollow(this.player.sprite);
+
+		this.input.on('pointerdown',function (pointer){
+			blobHandling.hurlBlob(this,this.blobs,this.player.color,this.player.sprite.x,this.player.sprite.y,pointer.x,pointer.y,CON.PBLOBLAUNCH,CON.BLOBOFFSETCOEFF)
+		},this)
 	}
 
 	update(){
@@ -53,5 +58,5 @@ function loadLevel(scene, platforms){
 }
 
 function positionToPx(position) {
-	return TEXTURE_SIZE/2 + position*TEXTURE_SIZE
+	return CON.TEXTURE_SIZE/2 + position*CON.TEXTURE_SIZE
 }
