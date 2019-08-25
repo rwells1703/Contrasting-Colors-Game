@@ -15,3 +15,6 @@ export function hurlBlob(scene,group,color,originx,originy,targetx,targety,maxSp
 
 }
 
+export function checkPaintballCollision(obj1, obj2){
+
+}
