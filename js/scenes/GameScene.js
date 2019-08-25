@@ -45,6 +45,7 @@ export class GameScene extends Phaser.Scene{
 		// this.physics.add.overlap(this.enemies, this.blobs, EntityLogic.checkColors);
 
 		this.cameras.main.startFollow(this.player.sprite);
+		this.cameras.main.setBounds(0, 0, level1.width*CON.TEXTURE_SIZE, level1.height*CON.TEXTURE_SIZE);
 		// console.log(this.cameras.main.deadzone);
 		// this.cameras.main.setFollowOffset(level1);
 		// this.cameras.main.setLerp(0.1,1);

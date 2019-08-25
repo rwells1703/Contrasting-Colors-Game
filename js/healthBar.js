@@ -4,6 +4,9 @@ export class HealthBar extends Phaser.GameObjects.Group{
 		this.bar = this.create(100, 100, "healthbar").setOrigin(0);
 		this.bar.fixedTocamera = true;
 		this.outline = this.create(100, 100, "healthbar-outline").setOrigin(0);
+		this.bar.setScrollFactor(0);
+		this.outline.setScrollFactor(0);
+
 	}
 
 	setPercent(proportion){
