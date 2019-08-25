@@ -9,7 +9,7 @@ export class Player {
         this.cursors = scene.input.keyboard.createCursorKeys();
     }
 
-    	update(){
+    update(){
 
     	let direction;
     	let velta;
@@ -47,8 +47,7 @@ export class Player {
 
     	this.sprite.setVelocityX(xvel)
 }
-	applyResistances(xvel)
-{
+	applyResistances(xvel){
     let direction = 1;
     if(xvel<0){
         direction = -1
@@ -66,4 +65,7 @@ export class Player {
     }
     return xvel;
 }
+    launchBlob(){
+
+    }
 }
