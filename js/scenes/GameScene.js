@@ -21,46 +21,65 @@ export class GameScene extends Phaser.Scene{
 		// Array of platform sprites that make up the design of the level
 		this.platforms = this.physics.add.staticGroup();
 		
+		//create Enemy group
+		this.enemies = this.physics.add.group();
+		this.enemiesArr = [];
+		this.physics.add.collider(this.enemies, this.platforms);
+
 		let [level_width, level_height] = loadLevel(this, 'level1');
 
 		this.physics.add.collider(this.player.sprite, this.platforms);
 
 		this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop.
-		this.input.on('pointerdown',function (pointer){
-			utils.hurlBlob(this,this.blobs,this.player.color,this.player.sprite.x,this.player.sprite.y,pointer.worldX,pointer.worldY,CON.PBLOBLAUNCH)
-		},this);
-
+		this.blobsArr = [];
+		this.input.on('pointerdown',pointer=>{
+				this.blobsArr.push(utils.hurlBlob(this, this.blobs, this.player.color,
+											this.player.sprite.x, this.player.sprite.y, 
+											pointer.worldX, pointer.worldY, CON.PBLOBLAUNCH)
+				);
+		});
 		
-		//create Enemy group
-		this.enemies = this.physics.add.group();
-		this.enemiesArr = [];
-		this.enemiesArr.push(new Enemies.Enemy(this.enemies, CON.COLORS.green, 100, positionToPx(9), positionToPx(2)));
-		this.physics.add.collider(this.enemies, this.platforms);
+
+		//blob hitting enemy
+		this.physics.add.overlap(this.enemies, this.blobs, (enemySprite, blobSprite)=>{
+			//finding the enemy object corresponding to the enemy sprite that got hit
+			//and also finding the blob object corresponding to the blob sprite that was hurled
+			let theEnemyObj = this.enemiesArr.filter(enemyObj=>enemyObj.sprite==enemySprite)[0];
+			let theBlobObj = this.blobsArr.filter(blobObj=>blobObj.sprite==blobSprite)[0];
+
+			let enemyColor = theEnemyObj.color;
+			let blobColor = theBlobObj.color;
+
+			//TODO: handle logic with the colors to determine what happens
+		});
+
+
+
+		//blob hitting player
+		this.physics.add.overlap(this.player.sprite, this.blobs, (playerSprite, blobSprite)=>{
+			let theBlobObj = this.blobsArr.filter(blobObj=>blobObj.sprite==blobSprite)[0];
+			let playerColor = this.player.color;
+			let blobColor = theBlobObj.color;
+
+			// console.log(playerColor);
+			// console.log(blobColor);
+		})
+
 
 		//Create fountains group
 		this.fountains = this.physics.add.staticGroup();
 		this.physics.add.overlap(this.player,this.fountains,null,this);
 
 
-		// this.physics.add.overlap(this.enemies, this.blobs, EntityLogic.checkColors);
 
 		this.cameras.main.startFollow(this.player.sprite);
+		//can't see "outside" of the world boundaries where no game exists
 		this.cameras.main.setBounds(0, 0, level_width*CON.TEXTURE_SIZE, level_height*CON.TEXTURE_SIZE);
 		
 
-		/*this.input.on('pointerdown',function (pointer){
-			utils.hurlBlob(this,this.blobs,this.player.color,this.player.sprite.x,this.player.sprite.y,pointer.x,pointer.y,CON.PBLOBLAUNCH,CON.BLOBOFFSETCOEFF)
-		},this)*/
-
-		// console.log(this.cameras.main.x);
-		// console.log(this.cameras.main.y);
-		// console.log(this.cameras.main.width);
-		// console.log(this.cameras.main.height);
-		// console.log(this.cameras.main.worldView);
-
 
 		this.healthBar = new HealthBar(this);
-		this.player.health = 2;
+		this.player.health = CON.MAX_PLAYER_HEALTH;
 	}
 
 	update(){

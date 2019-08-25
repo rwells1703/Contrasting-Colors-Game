@@ -8,9 +8,5 @@ export function hurlBlob(scene,group,color,originx,originy,targetx,targety,maxSp
 	xvec = xvec/magnitude * maxSpeed;
 	yvec = yvec/magnitude * maxSpeed;
 
-	let paintBlob = new PaintBlob(scene,group,color,originx,originy,xvec,yvec);
-}
-
-export function checkPaintballCollision(obj1, obj2){
-
+	return new PaintBlob(scene,group,color,originx,originy,xvec,yvec);
 }

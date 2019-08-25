@@ -14,13 +14,7 @@ export class LoadScene extends Phaser.Scene{
         this.load.image('healthbar', 'assets/healthbar.png');
         this.load.image('healthbar-outline', 'assets/healthbar-outline.png');
 
-        // this.load.image('healthBarEnemy', 'assets/healthBarEnemy.png');
-
         // this.load.spritesheet('boss-enemy', 'assets/sprites/boss-enemy.png', {});
-
-        // this.load.spritesheet();
-
-
 		this.load.audio('buttonSound', 'assets/sounds/to.wav');
 	}
 
