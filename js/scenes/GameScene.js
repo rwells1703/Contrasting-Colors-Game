@@ -1,12 +1,15 @@
-import {COLORS, SCENES, TEXTURE_SIZE} from '../constants.js'
+import * as CON from '../constants.js'
+//import {level1} from '../levels.js'
 import {Player} from '../entities/player.js'
-import {Enemy} from '../entities/enemy.js'
+import * as Enemies from '../entities/enemy.js'
 import {PaintBlob} from '../entities/paintBlob.js'
 import {loadLevel, positionToPx} from "../levels.js";
+import * as utils from '../entities/utils.js'
+import {HealthBar} from '../healthBar.js'
 
 export class GameScene extends Phaser.Scene{
 	constructor(){
-		super({key: SCENES.GAMESCENE});
+		super({key: CON.SCENES.GAMESCENE});
 	}
 
 	preload(){
@@ -17,21 +20,58 @@ export class GameScene extends Phaser.Scene{
 	create(){
 		// Array of platform sprites that make up the design of the level
 		this.platforms = this.physics.add.staticGroup();
-		loadLevel(this, this.platforms, 'level1');
+		
+		let [level_width, level_height] = loadLevel(this, 'level1');
 
 		this.physics.add.collider(this.player.sprite, this.platforms);
-		this.blobs = [];//Add blobs using blobs.push, remove using blobs.pop.
-		this.enemies = [];//Add enemies using enemies.push, remove using enemies.pop.
 
-		//this.cameras.main.setBounds(0, 0, level1.width, level1.height);
+		this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop.
+		this.input.on('pointerdown',function (pointer){
+			utils.hurlBlob(this,this.blobs,this.player.color,this.player.sprite.x,this.player.sprite.y,pointer.x,pointer.y,CON.PBLOBLAUNCH)
+		},this);
+
+		
+		//create Enemy group
+		this.enemies = this.physics.add.group();
+		this.enemiesArr = [];
+		this.enemiesArr.push(new Enemies.Enemy(this.enemies, CON.COLORS.green, 100, positionToPx(9), positionToPx(2)));
+		this.physics.add.collider(this.enemies, this.platforms);
+
+		//Create fountains group
+		this.fountains = this.physics.add.staticGroup();
+		this.physics.add.overlap(this.player,this.fountains,null,this);
+
+
+		// this.physics.add.overlap(this.enemies, this.blobs, EntityLogic.checkColors);
+
 		this.cameras.main.startFollow(this.player.sprite);
+		this.cameras.main.setBounds(0, 0, level_width*CON.TEXTURE_SIZE, level_height*CON.TEXTURE_SIZE);
+		
+
+		/*this.input.on('pointerdown',function (pointer){
+			utils.hurlBlob(this,this.blobs,this.player.color,this.player.sprite.x,this.player.sprite.y,pointer.x,pointer.y,CON.PBLOBLAUNCH,CON.BLOBOFFSETCOEFF)
+		},this)*/
+
+		// console.log(this.cameras.main.x);
+		// console.log(this.cameras.main.y);
+		// console.log(this.cameras.main.width);
+		// console.log(this.cameras.main.height);
+		// console.log(this.cameras.main.worldView);
+
+
+		this.healthBar = new HealthBar(this);
+		this.player.health = 2;
 	}
 
 	update(){
-        this.player.update();
-
-        for(let enemy of this.enemies){
+		this.healthBar.setPercent(this.player.health/CON.MAX_PLAYER_HEALTH);
+        this.player.update(this);
+        for(let enemy of this.enemiesArr){
             enemy.update();
         }
     }
+}
+
+function changePlayerColor(player,fountain){
+	this.player.changeColor(fountain.data.color());
 }

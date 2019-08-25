@@ -51,8 +51,7 @@ function readLevelData(levelString) {
     return level;
 }
 
-// Loads the positions of the platforms in the platforms array
-export function loadLevel(scene, platforms, levelKey) {
+export function loadLevel(scene, levelKey) {
     let levelString = scene.cache.text.get(levelKey);
     let level = readLevelData(levelString);
     
@@ -67,7 +66,7 @@ export function loadLevel(scene, platforms, levelKey) {
 		let j = 0;
 		while (j < level.width) {
 			if (JSON.stringify(level.pixels[i][j]) == JSON.stringify(itemTypes.platform)) {
-				platforms.create(positionToPx(j), positionToPx(i), 'platform');
+				scene.platforms.create(positionToPx(j), positionToPx(i), 'platform');
             } else if (JSON.stringify(level.pixels[i][j]) == JSON.stringify(itemTypes.player)) {	
                 // Create the player
                 scene.player = new Player(scene, COLORS.red, 10, positionToPx(j), positionToPx(i));
@@ -77,7 +76,9 @@ export function loadLevel(scene, platforms, levelKey) {
 		}
         
 		i += 1;
-	}
+    }
+    
+    return [level.width, level.height];
 }
 
 export function positionToPx(position) {
