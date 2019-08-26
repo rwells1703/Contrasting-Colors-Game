@@ -26,6 +26,10 @@ export class GameScene extends Phaser.Scene{
 		this.enemiesArr = [];
 		this.physics.add.collider(this.enemies, this.platforms);
 
+		//Set blobCounter so that the player can shoot
+		this.blobCounter = CON.BLOBTIMEOUT;
+		this.prevBlobCounter = 0;
+
 		let [level_width, level_height] = loadLevel(this, 'level1');
 
 		this.physics.add.collider(this.player.sprite, this.platforms, (playerSprite, platformSprite)=>{
@@ -48,10 +52,13 @@ export class GameScene extends Phaser.Scene{
 		this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop
 		this.blobsArr = [];
 		this.input.on('pointerdown',pointer=>{
-				this.blobsArr.push(Utils.hurlBlob(this, this.blobs, this.player.color,
+			if((this.blobCounter-this.prevBlobCounter)>CON.BLOBTIMEOUT){
+				this.blobsArr.push(Utils.hurlBlob(this.blobsArr, this.blobs, this.player.color,
 											this.player.sprite.x, this.player.sprite.y, 
 											pointer.worldX, pointer.worldY, CON.PBLOBLAUNCH)
 				);
+				this.prevBlobCounter = this.blobCounter;
+			}
 		});
 
 		//blob bounces off platforms
@@ -67,8 +74,8 @@ export class GameScene extends Phaser.Scene{
 
 			}else if(Utils.doesColourDoDamage(thePlatformObj.color,theBlobObj.color)){
 				Utils.destroyEntity(theBlobObj,this.blobsArr);
-			}else if (theBlobObj.checkTooSlow()){
-				Utils.destroyEntity(theBlobObj,this.blobsArr);
+			}else{
+				theBlobObj.addBounce();
 			}
 		});
 
@@ -142,6 +149,7 @@ export class GameScene extends Phaser.Scene{
         for(let enemy of this.enemiesArr){
             enemy.update(delta);
         }
+        this.blobCounter = delta;
     }
 }
 
