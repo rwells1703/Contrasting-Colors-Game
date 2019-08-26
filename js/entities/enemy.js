@@ -1,7 +1,8 @@
 import {ColorEntity} from './colorEntity.js';
+import * as Util from './utils.js'
 
 export class Enemy extends ColorEntity{
-    constructor (group, color, health, x, y) {
+    constructor (group,arr, color, health, x, y) {
         super();
         this.health = health;
         this.sprite = group.create(x, y, "enemy");
@@ -15,7 +16,7 @@ export class Enemy extends ColorEntity{
     damage(damValue){
         this.health -= damValue;
         if (this.health <= 0){
-            this.destroy();
+            utils.destroyEntity(this,arr)
         }
     }
 

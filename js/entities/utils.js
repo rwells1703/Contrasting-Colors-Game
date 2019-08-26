@@ -10,3 +10,8 @@ export function hurlBlob(scene,group,color,originx,originy,targetx,targety,maxSp
 
 	return new PaintBlob(scene,group,color,originx,originy,xvec,yvec);
 }
+
+export function destroyEntity(entity,arr){
+	entity.destroy();
+	arr.splice(arr.indexOf(entity),1);
+}
