@@ -9,7 +9,6 @@ export class Enemy extends ColorEntity{
     }
 
     update(delta){//Called each frame. Some enemy AI could be put here.
-    	// this.setVelocityX(10);
     }
 }
 

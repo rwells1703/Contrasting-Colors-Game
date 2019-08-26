@@ -1,6 +1,7 @@
 import {COLORS, TEXTURE_SIZE} from './constants.js'
 import {Player} from './entities/player.js'
 import * as Enemies from './entities/enemy.js'
+import {Platform} from './entities/platform.js'
 
 function stringToArrayBuffer(string) {
     var buffer = new ArrayBuffer(string.length);
@@ -69,7 +70,7 @@ export function loadLevel(scene, levelKey) {
 		while (j < level.width) {
             let stringified = JSON.stringify(level.pixels[i][j]); 
 			if (stringified== JSON.stringify(itemTypes.platform)) {
-				scene.platforms.create(positionToPx(j), positionToPx(i), 'platform');
+                scene.platformsArr.push(new Platform(scene.platforms, COLORS.yellow, positionToPx(j), positionToPx(i)));
             } else if (stringified == JSON.stringify(itemTypes.player)) {	
                 scene.player = new Player(scene, COLORS.red, 10, positionToPx(j), positionToPx(i));
             }else if(stringified == JSON.stringify(itemTypes.enemy)){

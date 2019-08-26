@@ -1,5 +1,4 @@
 import * as CON from '../constants.js'
-//import {level1} from '../levels.js'
 import {Player} from '../entities/player.js'
 import * as Enemies from '../entities/enemy.js'
 import {PaintBlob} from '../entities/paintBlob.js'
@@ -18,8 +17,9 @@ export class GameScene extends Phaser.Scene{
 	}
 
 	create(){
-		// Array of platform sprites that make up the design of the level
+		// Platform sprites that make up the design of the level
 		this.platforms = this.physics.add.staticGroup();
+		this.platformsArr = [];
 		
 		//create Enemy group
 		this.enemies = this.physics.add.group();
@@ -28,8 +28,17 @@ export class GameScene extends Phaser.Scene{
 
 		let [level_width, level_height] = loadLevel(this, 'level1');
 
-		this.physics.add.collider(this.player.sprite, this.platforms);
+		this.physics.add.collider(this.player.sprite, this.platforms, (playerSprite, platformSprite)=>{
+			let playerColor = this.player.color;
+			let platformObj = this.platformsArr.filter(platformObj=>platformObj.sprite==platformSprite)[0];
+			let platformColor = platformObj.color;
 
+			console.log(playerColor);
+			console.log(platformColor);
+		});
+
+
+		//create Blob group
 		this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop.
 		this.blobsArr = [];
 		this.input.on('pointerdown',pointer=>{
@@ -57,13 +66,15 @@ export class GameScene extends Phaser.Scene{
 
 		//blob hitting player
 		this.physics.add.overlap(this.player.sprite, this.blobs, (playerSprite, blobSprite)=>{
-			let theBlobObj = this.blobsArr.filter(blobObj=>blobObj.sprite==blobSprite)[0];
 			let playerColor = this.player.color;
+			let theBlobObj = this.blobsArr.filter(blobObj=>blobObj.sprite==blobSprite)[0];
 			let blobColor = theBlobObj.color;
 
 			// console.log(playerColor);
 			// console.log(blobColor);
-		})
+		});
+
+
 
 
 		//Create fountains group
@@ -83,7 +94,9 @@ export class GameScene extends Phaser.Scene{
 	}
 
 	update(){
+		//update health bar every frame
 		this.healthBar.setPercent(this.player.health/CON.MAX_PLAYER_HEALTH);
+		//handles keyboard input every frame
         this.player.update(this);
         for(let enemy of this.enemiesArr){
             enemy.update();
