@@ -2,13 +2,21 @@ import {ColorEntity} from './colorEntity.js';
 
 export class Enemy extends ColorEntity{
     constructor (group, color, health, x, y) {
-        super(color);
+        super();
         this.health = health;
         this.sprite = group.create(x, y, "enemy");
+        this.changeColor(color);
         this.sprite.setBounce(0.2);
         this.dir=1;
         this.sprite.setVelocityX(50);
         this.timeOfPreviousCollision = 0;
+    }
+
+    damage(damValue){
+        this.health -= damValue;
+        if (this.health <= 0){
+            this.destroy();
+        }
     }
 
     update(delta){//Called each frame. Some enemy AI could be put here.
@@ -28,9 +36,11 @@ export class Enemy extends ColorEntity{
 
         }
 
+        this.setAnimation();
         // console.log(this.sprite.body.velocity.x);
 
     }
+    getAnimationSuperName(){return "enemy";}
 }
 
 

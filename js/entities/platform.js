@@ -1,6 +1,12 @@
-export class Platform{
-	constructor(platformGroup, color, x, y){
-		this.sprite = platformGroup.create(x, y, "platform");
-		this.color = color;
+import {ColorEntity} from './colorEntity.js'
+export class Platform extends ColorEntity{
+	constructor(group, color, x, y){
+		super();
+		this.sprite = group.create(x, y, "platform");
+        this.changeColor(color);
 	}
+
+    setAnimation(){
+        this.sprite.anims.play('platform'+this.color+"R",true);
+    }
 }
