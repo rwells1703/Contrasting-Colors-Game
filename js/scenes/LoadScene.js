@@ -19,7 +19,7 @@ export class LoadScene extends Phaser.Scene{
         this.load.image('healthbar-outline', 'assets/healthbar-outline.png');
 
 
-//         this.load.spritesheet('fountain', 'assets/fountain.png', {frameWidth:, frameHeight: });
+        this.load.spritesheet('fountain', 'assets/sprites/fountain.png', {frameWidth: 64, frameHeight: 64});
 
         // this.load.spritesheet('boss-enemy', 'assets/sprites/boss-enemy.png', {});
 		this.load.audio('buttonSound', 'assets/sounds/to.wav');
@@ -33,6 +33,8 @@ export class LoadScene extends Phaser.Scene{
         this.loadAnimations("enemy",COLORS.white,4,4,true);
         this.loadAnimations("platform",COLORS.black,1,1,false);
         this.loadAnimations("paintBlob",COLORS.white,1,1,false);
+        this.loadAnimations("fountain",COLORS.green,1,1,false);
+
 		this.scene.start(SCENES.MENUSCENE);
 	}
 

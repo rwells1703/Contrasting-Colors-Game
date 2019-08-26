@@ -1,7 +1,7 @@
 export class ColorEntity{
 	changeColor(newColor){
 		this.color = newColor;
-        this.setAnimation();//Maybe not needed, as should be set in update.
+        // this.setAnimation();//Maybe not needed, as should be set in update.
     }
 
 	setAnimation(){

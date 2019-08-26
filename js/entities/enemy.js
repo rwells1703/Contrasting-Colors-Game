@@ -9,9 +9,8 @@ export class Enemy extends ColorEntity{
         this.sprite = group.create(x, y, "enemy");
         this.changeColor(color);
         this.sprite.setBounce(0.2);
-        this.dir=1;
-        this.sprite.setVelocityX(50);
-        this.timeOfPreviousCollision = 0;
+        this.speed = Math.floor(50+Math.random()*100);
+        this.sprite.setVelocityX(this.speed);
     }
 
     damage(damValue){
@@ -22,25 +21,12 @@ export class Enemy extends ColorEntity{
     }
 
     update(delta){//Called each frame. Some enemy AI could be put here.
-        this.timeOfCollision = delta;
-        this.timeSinceLastCollision = this.timeOfCollision - this.timeOfPreviousCollision;
-
-        if(this.timeSinceLastCollision > 100){
-            // console.log(this.sprite.body.touching.left);
-            // console.log(this.sprite.body.touching.right);
-            if(this.sprite.body.touching.left || this.sprite.body.touching.right){
-                // console.log(this.sprite.body.velocity.x);
-                this.dir*=-1;
-                this.sprite.setVelocityX(this.dir*50);
-                console.log(this.sprite.body.velocity.x);
-            }
-            this.timeOfPreviousCollision = this.timeOfCollision;
-
+        if(this.sprite.body.touching.left){
+            this.sprite.setVelocityX(this.speed);
+        }else if(this.sprite.body.touching.right){
+            this.sprite.setVelocityY(-this.speed);
         }
-
         this.setAnimation();
-        // console.log(this.sprite.body.velocity.x);
-
     }
     getAnimationSuperName(){return "enemy";}
 }

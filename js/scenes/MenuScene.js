@@ -26,7 +26,7 @@ export class MenuScene extends Phaser.Scene{
 					.on("pointerout", ()=>this.startButton.setColor("white"))
 					.on("pointerdown", ()=>{
 						this.btnSoundFX.play();
-						this.scene.start(SCENES.GAMESCENE);
+						this.scene.start(SCENES.GAMESCENE, {levelNum: 1});
 					});
 
 

@@ -70,7 +70,7 @@ export function loadLevel(scene, levelKey) {
 		while (j < level.width) {
             let stringified = JSON.stringify(level.pixels[i][j]); 
 			if (stringified== JSON.stringify(itemTypes.platform)) {
-                scene.platformsArr.push(new Platform(scene.platforms, COLORS.black, positionToPx(j), positionToPx(i)));
+                scene.platformsArr.push(new Platform(scene.platforms, COLORS.red, positionToPx(j), positionToPx(i)));
             } else if (stringified == JSON.stringify(itemTypes.player)) {	
                 scene.player = new Player(scene, COLORS.white, MAX_PLAYER_HEALTH, positionToPx(j), positionToPx(i));
             }else if(stringified == JSON.stringify(itemTypes.enemy)){

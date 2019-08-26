@@ -9,7 +9,6 @@ export class Player extends ColorEntity {
         this.changeColor(color);
         this.sprite.setBounce(0.15);
         this.cursors = scene.input.keyboard.createCursorKeys();
-        console.log(this.sprite)
     }
 
 	update() {
@@ -62,6 +61,7 @@ export class Player extends ColorEntity {
 	damage(damValue){
 		this.health -= damValue;
         if (this.health <= 0){
+        	this.health = 0;
         }
 	}
 
