@@ -35,10 +35,7 @@ export class GameScene extends Phaser.Scene{
 
 			if (playerColor==platformColor){
 				platformObj.sprite.body.checkCollision.none=true;
-				console.log("same color");
-			}else{
-				console.log("not same color");
-			}
+            }
 
 			// console.log(playerColor);
 			// console.log(platformColor);
@@ -63,7 +60,7 @@ export class GameScene extends Phaser.Scene{
 
 			if(thePlatformObj.color == theBlobObj.color){
 
-			}else if(oppositeColor(thePlatformObj.color,theBlobObj.color)){
+			}else if(utils.doesColourDoDamage(thePlatformObj.color,theBlobObj.color)){
 				destroyEntity(theBlobObj,this.blobsArr);
 			}else if (theBlobObj.checkTooSlow()){
 				destroyEntity(theBlobObj,this.blobsArr);
@@ -87,7 +84,7 @@ export class GameScene extends Phaser.Scene{
 			console.log(this.blobsArr);
 			if(enemyColor == blobColor){
 
-			}else if(oppositeColor(enemyColor,blobColor)){
+			}else if(utils.doesColourDoDamage(enemyColor,blobColor)){
 				destroyEntity(theBlobObj,this.blobsArr);
 
 				theEnemyObj.damage(1);
@@ -144,10 +141,6 @@ export class GameScene extends Phaser.Scene{
 
 function changePlayerColor(player,fountain){
 	this.player.changeColor(fountain.data.color());
-}
-
-function oppositeColor(c1,c2){
-	return false;
 }
 
 function destroyEntity(entity,arr){
