@@ -9,7 +9,6 @@ export class Player extends ColorEntity {
         this.changeColor(color);
         this.sprite.setBounce(0.15);
         this.cursors = scene.input.keyboard.createCursorKeys();
-        this.sprite.data = this;
         console.log(this.sprite)
     }
 
@@ -58,6 +57,12 @@ export class Player extends ColorEntity {
 		this.sprite.setVelocityX(xvel);
 
         this.setAnimation();
+	}
+
+	damage(damValue){
+		this.health -= damValue;
+        if (this.health <= 0){
+        }
 	}
 
 	getAnimationSuperName(){return "player";}
