@@ -3,9 +3,10 @@ import {ColorEntity} from './colorEntity.js'
 
 export class Player extends ColorEntity {
     constructor (scene, color, health, x, y) {
-        super(color);
+        super();
         this.health = health;
         this.sprite = scene.physics.add.sprite(x, y, 'player');
+        this.changeColor(color);
         this.sprite.setBounce(0.15);
         this.cursors = scene.input.keyboard.createCursorKeys();
         this.sprite.data = this;
@@ -54,5 +55,9 @@ export class Player extends ColorEntity {
 
 		// Apply velocity to the sprite itself
 		this.sprite.setVelocityX(xvel);
+
+        this.setAnimation();
 	}
+
+	getAnimationSuperName(){return "player";}
 }
