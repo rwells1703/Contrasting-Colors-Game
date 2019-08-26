@@ -7,4 +7,7 @@ export class ColorEntity{
 	changeColor(newColor){
 		this.color = newColor
 	}
+	destroy(){
+		this.sprite.destroy();
+	}
 }

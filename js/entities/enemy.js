@@ -11,6 +11,13 @@ export class Enemy extends ColorEntity{
         this.timeOfPreviousCollision = 0;
     }
 
+    damage(damValue){
+        this.health -= damValue;
+        if (this.health <= 0){
+            this.destroy();
+        }
+    }
+
     update(delta){//Called each frame. Some enemy AI could be put here.
         this.timeOfCollision = delta;
         this.timeSinceLastCollision = this.timeOfCollision - this.timeOfPreviousCollision;

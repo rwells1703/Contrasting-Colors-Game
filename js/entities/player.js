@@ -9,6 +9,7 @@ export class Player extends ColorEntity {
         this.sprite.setBounce(0.15);
         this.cursors = scene.input.keyboard.createCursorKeys();
         this.sprite.data = this;
+        console.log(this.sprite)
     }
 
 	update() {
