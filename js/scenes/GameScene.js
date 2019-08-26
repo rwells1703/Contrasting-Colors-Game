@@ -33,8 +33,8 @@ export class GameScene extends Phaser.Scene{
 			let platformObj = this.platformsArr.filter(platformObj=>platformObj.sprite==platformSprite)[0];
 			let platformColor = platformObj.color;
 
-			console.log(playerColor);
-			console.log(platformColor);
+			// console.log(playerColor);
+			// console.log(platformColor);
 		});
 
 
@@ -93,13 +93,13 @@ export class GameScene extends Phaser.Scene{
 		this.player.health = CON.MAX_PLAYER_HEALTH;
 	}
 
-	update(){
+	update(delta){
 		//update health bar every frame
 		this.healthBar.setPercent(this.player.health/CON.MAX_PLAYER_HEALTH);
 		//handles keyboard input every frame
-        this.player.update(this);
+        this.player.update(this, delta);
         for(let enemy of this.enemiesArr){
-            enemy.update();
+            enemy.update(delta);
         }
     }
 }
