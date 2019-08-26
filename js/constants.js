@@ -19,10 +19,13 @@ export const XDROPOFF = 0.1;
 export const GFS = 1500;
 export const JUMPVEOLCITY = -700;
 
-export const PBLOBLAUNCH = 800;
+export const PBLOBLAUNCH = 1000;
 export const BLOBBOUNCECOEFF = 0.7;
+export const BLOBTIMEOUT = 500;
 export const BLOBMINSPEED = 500;
 export const BLOBMINYVEL = 100;
+export const MAXBLOBBOUNCES = 3;
+
 
 export const MAX_PLAYER_HEALTH = 3;
 export const MAX_ENEMY_HEALTH = 1;
