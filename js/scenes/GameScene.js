@@ -39,9 +39,6 @@ export class GameScene extends Phaser.Scene{
 			}else{
 				console.log("not same color");
 			}
-
-			// console.log(playerColor);
-			// console.log(platformColor);
 		});
 		
 
