@@ -9,4 +9,8 @@ export class ColorEntity{
     }
 
     getAnimationSuperName(){}
+
+	destroy(){
+		this.sprite.destroy();
+	}
 }

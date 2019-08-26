@@ -26,9 +26,9 @@ export class LoadScene extends Phaser.Scene{
 	}
 
 	create(){
-        this.loadAnimations("player","white",1,1,true);
-        this.loadAnimations("enemy","white",4,4,true);
-        this.loadAnimations("platform","black",1,1,false);
+        this.loadAnimations("player",COLORS.white,1,1,true);
+        this.loadAnimations("enemy",COLORS.white,4,4,true);
+        this.loadAnimations("platform",COLORS.black,1,1,false);
 		this.scene.start(SCENES.MENUSCENE);
 	}
 

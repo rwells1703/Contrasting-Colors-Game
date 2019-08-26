@@ -17,6 +17,9 @@ export class GameScene extends Phaser.Scene{
 	}
 
 	create(){
+		let jon = [1,2,3,4]
+		console.log(jon.splice(2,1));
+		console.log(jon);
 		// Platform sprites that make up the design of the level
 		this.platforms = this.physics.add.staticGroup();
 		this.platformsArr = [];
@@ -33,13 +36,18 @@ export class GameScene extends Phaser.Scene{
 			let platformObj = this.platformsArr.filter(platformObj=>platformObj.sprite==platformSprite)[0];
 			let platformColor = platformObj.color;
 
+			if (playerColor==platformColor){
+
+			}else{
+			}
+
 			// console.log(playerColor);
 			// console.log(platformColor);
 		});
-
+		
 
 		//create Blob group
-		this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop.
+		this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop
 		this.blobsArr = [];
 		this.input.on('pointerdown',pointer=>{
 				this.blobsArr.push(utils.hurlBlob(this, this.blobs, this.player.color,
@@ -47,6 +55,11 @@ export class GameScene extends Phaser.Scene{
 											pointer.worldX, pointer.worldY, CON.PBLOBLAUNCH)
 				);
 		});
+
+		//blob bounces off platforms
+		this.physics.add.collider(this.blobs,this.platforms);
+
+
 		
 
 		//blob hitting enemy
@@ -58,6 +71,21 @@ export class GameScene extends Phaser.Scene{
 
 			let enemyColor = theEnemyObj.color;
 			let blobColor = theBlobObj.color;
+
+
+			console.log(this.blobsArr);
+			if(enemyColor == blobColor){
+
+			}else if(oppositeColor(enemyColor,blobColor)){
+				theBlobObj.destroy();
+				this.blobsArr.splice(this.blobsArr.indexOf(theBlobObj),1);
+
+				theEnemyObj.damage(1);
+			}else{
+				theBlobObj.destroy();
+				this.blobsArr.splice(this.blobsArr.indexOf(theBlobObj),1);
+
+			}
 
 			//TODO: handle logic with the colors to determine what happens
 		});
@@ -106,4 +134,8 @@ export class GameScene extends Phaser.Scene{
 
 function changePlayerColor(player,fountain){
 	this.player.changeColor(fountain.data.color());
+}
+
+function oppositeColor(c1,c2){
+	return true;
 }
