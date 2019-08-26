@@ -1,4 +1,6 @@
 import {ColorEntity} from './colorEntity.js';
+import {BLOBMINSPEED} from '../constants.js';
+import {BLOBMINYVEL} from '../constants.js';
 
 export class PaintBlob extends ColorEntity{
     constructor (scene, group, color, x, y, velocityX, velocityY) {
@@ -10,5 +12,15 @@ export class PaintBlob extends ColorEntity{
     }
     setAnimation(){
         this.sprite.anims.play('paintBlob'+this.color+"R",true);
+    }
+    checkTooSlow(){
+        console.log(Math.abs(this.sprite.body.velocity.y));
+        if(this.sprite.body.speed < BLOBMINSPEED){
+            return true;
+        }else if(Math.abs(this.sprite.body.velocity.y) < BLOBMINYVEL){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
