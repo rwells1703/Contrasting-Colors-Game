@@ -37,8 +37,10 @@ export class GameScene extends Phaser.Scene{
 			let platformColor = platformObj.color;
 
 			if (playerColor==platformColor){
-
+				platformObj.sprite.body.checkCollision.none=true;
+				console.log("same color");
 			}else{
+				console.log("not same color");
 			}
 
 			// console.log(playerColor);
