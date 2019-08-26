@@ -1,4 +1,4 @@
-import {COLORS, TEXTURE_SIZE} from './constants.js'
+import {COLORS, TEXTURE_SIZE,MAX_PLAYER_HEALTH,MAX_BOSS_HEALTH,MAX_ENEMY_HEALTH} from './constants.js'
 import {Player} from './entities/player.js'
 import * as Enemies from './entities/enemy.js'
 import {Platform} from './entities/platform.js'
@@ -72,9 +72,9 @@ export function loadLevel(scene, levelKey) {
 			if (stringified== JSON.stringify(itemTypes.platform)) {
                 scene.platformsArr.push(new Platform(scene.platforms, COLORS.black, positionToPx(j), positionToPx(i)));
             } else if (stringified == JSON.stringify(itemTypes.player)) {	
-                scene.player = new Player(scene, COLORS.white, 10, positionToPx(j), positionToPx(i));
+                scene.player = new Player(scene, COLORS.white, MAX_PLAYER_HEALTH, positionToPx(j), positionToPx(i));
             }else if(stringified == JSON.stringify(itemTypes.enemy)){
-                scene.enemiesArr.push(new Enemies.Enemy(scene.enemies, COLORS.green, 10, positionToPx(j), positionToPx(i)));
+                scene.enemiesArr.push(new Enemies.Enemy(scene.enemies,scene.enemiesArr, COLORS.green, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i)));
             }
             
 			j += 1;

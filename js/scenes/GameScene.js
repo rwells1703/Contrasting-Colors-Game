@@ -3,7 +3,7 @@ import {Player} from '../entities/player.js'
 import * as Enemies from '../entities/enemy.js'
 import {PaintBlob} from '../entities/paintBlob.js'
 import {loadLevel, positionToPx} from "../levels.js";
-import * as utils from '../entities/utils.js'
+import * as Utils from '../entities/utils.js'
 import {HealthBar} from '../healthBar.js'
 
 export class GameScene extends Phaser.Scene{
@@ -36,6 +36,8 @@ export class GameScene extends Phaser.Scene{
 			if (playerColor==platformColor){
 				platformObj.sprite.body.checkCollision.none=true;
 				console.log("same color");
+			}else if(Utils.doesColourDoDamage(playerColor,platformColor)){
+				this.player.damage(1);
 			}else{
 				console.log("not same color");
 			}
@@ -46,7 +48,7 @@ export class GameScene extends Phaser.Scene{
 		this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop
 		this.blobsArr = [];
 		this.input.on('pointerdown',pointer=>{
-				this.blobsArr.push(utils.hurlBlob(this, this.blobs, this.player.color,
+				this.blobsArr.push(Utils.hurlBlob(this, this.blobs, this.player.color,
 											this.player.sprite.x, this.player.sprite.y, 
 											pointer.worldX, pointer.worldY, CON.PBLOBLAUNCH)
 				);
@@ -54,16 +56,19 @@ export class GameScene extends Phaser.Scene{
 
 		//blob bounces off platforms
 		this.physics.add.collider(this.blobs,this.platforms, (blobSprite,platformSprite)=>{
+			console.log(blobSprite)
+			console.log(this.blobsArr.filter(blobObj=>blobObj.sprite==blobSprite)[0]);
+
 			let theBlobObj = this.blobsArr.filter(blobObj=>blobObj.sprite==blobSprite)[0];
 			let thePlatformObj = this.platformsArr.filter(platformObj=>platformObj.sprite==platformSprite)[0];
 
 
 			if(thePlatformObj.color == theBlobObj.color){
 
-			}else if(oppositeColor(thePlatformObj.color,theBlobObj.color)){
-				destroyEntity(theBlobObj,this.blobsArr);
+			}else if(Utils.doesColourDoDamage(thePlatformObj.color,theBlobObj.color)){
+				Utils.destroyEntity(theBlobObj,this.blobsArr);
 			}else if (theBlobObj.checkTooSlow()){
-				destroyEntity(theBlobObj,this.blobsArr);
+				Utils.destroyEntity(theBlobObj,this.blobsArr);
 			}
 		});
 
@@ -84,13 +89,13 @@ export class GameScene extends Phaser.Scene{
 			console.log(this.blobsArr);
 			if(enemyColor == blobColor){
 
-			}else if(oppositeColor(enemyColor,blobColor)){
-				destroyEntity(theBlobObj,this.blobsArr);
+			}else if(Utils.doesColourDoDamage(enemyColor,blobColor)){
+				Utils.destroyEntity(theBlobObj,this.blobsArr);
 
 				theEnemyObj.damage(1);
 			}else{
 				theBlobObj.destroy();
-				destroyEntity(theBlobObj,this.blobsArr);
+				Utils.destroyEntity(theBlobObj,this.blobsArr);
 
 			}
 
@@ -112,9 +117,10 @@ export class GameScene extends Phaser.Scene{
 
 
 
-		//Create fountains group
+		//Create fountains group and array
+		this.fountainsArr = [] ;
 		this.fountains = this.physics.add.staticGroup();
-		this.physics.add.overlap(this.player,this.fountains,null,this);
+		this.physics.add.overlap(this.player,this.fountains,changePlayerColor,null,this);
 
 
 
@@ -140,14 +146,11 @@ export class GameScene extends Phaser.Scene{
 }
 
 function changePlayerColor(player,fountain){
-	this.player.changeColor(fountain.data.color());
-}
+	let theFountainObj = this.platformsArr.filter(platformObj=>platformObj.sprite==platformSprite)[0];
 
-function oppositeColor(c1,c2){
-	return false;
-}
+	let relevantWalls = this.platformsArr.filter(platformObj=>platformObj.color==player.color);
 
-function destroyEntity(entity,arr){
-	entity.destroy();
-	arr.splice(arr.indexOf(entity),1);
+	relevantWalls.sprite.body.checkCollision.none=false;
+
+	this.player.changeColor(theFountainObj.color);
 }
