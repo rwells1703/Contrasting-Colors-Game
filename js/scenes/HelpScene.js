@@ -6,19 +6,22 @@ export class HelpScene extends Phaser.Scene{
 	}
 
 	create(){
-		console.log("help scene entered");
 		this.btnSoundFX = this.sound.add("buttonSound");
 
 		this.title = this.add.text(100, 100, "Help", CON.TITLE_FONT);
 
+		this.helpText = this.add.text(100, 200, "Splat! Spling! Slosh!\nThe sassy spraycans are taking over. Poor paintbrushes!");
+
 		this.tweens.add({
-			targets: this.title,
+			targets: [this.title, this.gameTitle],
 			duration: 1500,
 			alpha: {from: 0, to: 1},
 			yoyo: true,
 			ease: "Elastic",
 			repeat: -1
 		});
+
+
 
 		this.backBtn = this.add.text(100, 500, "Back to main menu", CON.BUTTON_FONT);
 		this.backBtn.setInteractive()

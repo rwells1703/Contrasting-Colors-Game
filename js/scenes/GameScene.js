@@ -3,7 +3,7 @@ import {Player} from '../entities/player.js'
 import * as Enemies from '../entities/enemy.js'
 import {PaintBlob} from '../entities/paintBlob.js'
 import {loadLevel, positionToPx} from "../levels.js";
-import * as Utils from '../entities/Utils.js'
+import * as Utils from '../entities/utils.js'
 import {HealthBar} from '../healthBar.js'
 
 export class GameScene extends Phaser.Scene{
@@ -40,14 +40,11 @@ export class GameScene extends Phaser.Scene{
 			if (playerColor==platformColor){
 				platformObj.sprite.body.checkCollision.none=true;
 				console.log("same color");
-			}else if(oppositeColor){
+			}else if(Utils.doesColourDoDamage(playerColor,platformColor)){
 				this.player.damage(1);
 			}else{
 				console.log("not same color");
 			}
-
-			// console.log(playerColor);
-			// console.log(platformColor);
 		});
 		
 
@@ -75,7 +72,7 @@ export class GameScene extends Phaser.Scene{
 
 			if(thePlatformObj.color == theBlobObj.color){
 
-			}else if(oppositeColor(thePlatformObj.color,theBlobObj.color)){
+			}else if(Utils.doesColourDoDamage(thePlatformObj.color,theBlobObj.color)){
 				Utils.destroyEntity(theBlobObj,this.blobsArr);
 			}else{
 				theBlobObj.addBounce();
@@ -99,7 +96,7 @@ export class GameScene extends Phaser.Scene{
 			console.log(this.blobsArr);
 			if(enemyColor == blobColor){
 
-			}else if(oppositeColor(enemyColor,blobColor)){
+			}else if(Utils.doesColourDoDamage(enemyColor,blobColor)){
 				Utils.destroyEntity(theBlobObj,this.blobsArr);
 
 				theEnemyObj.damage(1);
@@ -165,8 +162,3 @@ function changePlayerColor(player,fountain){
 
 	this.player.changeColor(theFountainObj.color);
 }
-
-function oppositeColor(c1,c2){
-	return false;
-}
-

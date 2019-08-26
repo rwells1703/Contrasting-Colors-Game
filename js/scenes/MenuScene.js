@@ -7,10 +7,17 @@ export class MenuScene extends Phaser.Scene{
 	}
 
 	create(){
+	    WebFont.load({
+	        google: {families: [ 'Finger Paint' ]},
+	        active: ()=>
+	        {
+	            this.gameTitle = this.add.text(100, 350, 'Contrasting Colors', { font: "50px Finger Paint", fontColor:"red"});
+	        }
+	    });
+
 		this.btnSoundFX = this.sound.add("buttonSound");
 
 		this.title = this.add.text(100, 100, "Main Menu", CON.TITLE_FONT);
-
 
 
 		this.startButton = this.add.text(100, 200, "Start game", CON.BUTTON_FONT);
@@ -28,14 +35,12 @@ export class MenuScene extends Phaser.Scene{
 					.on("pointerover", ()=>this.helpButton.setColor("blue"))
 					.on("pointerout", ()=>this.helpButton.setColor("white"))
 					.on("pointerdown", ()=>{
-						console.log("hello there");
 						this.btnSoundFX.play();
-						console.log(SCENES.HELPSCENE);
 						this.scene.start(SCENES.HELPSCENE);
 					});
 
 		this.tweens.add({
-			targets: this.title,
+			targets: [this.title, this.gameTitle],
 			duration: 1500,
 			alpha: {from: 0, to: 1},
 			yoyo: true,

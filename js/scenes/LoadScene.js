@@ -23,6 +23,9 @@ export class LoadScene extends Phaser.Scene{
 
         // this.load.spritesheet('boss-enemy', 'assets/sprites/boss-enemy.png', {});
 		this.load.audio('buttonSound', 'assets/sounds/to.wav');
+    
+        this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+
 	}
 
 	create(){
