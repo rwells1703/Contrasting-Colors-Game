@@ -68,15 +68,42 @@ export function loadLevel(scene, levelKey) {
 	while (i < level.height) {
 		let j = 0;
 		while (j < level.width) {
-            let stringified = JSON.stringify(level.pixels[i][j]); 
-			if (stringified== JSON.stringify(itemTypes.platform)) {
-                scene.platformsArr.push(new Platform(scene.platforms, COLORS.black, positionToPx(j), positionToPx(i)));
-            } else if (stringified == JSON.stringify(itemTypes.player)) {	
-                scene.player = new Player(scene, COLORS.white, MAX_PLAYER_HEALTH, positionToPx(j), positionToPx(i));
-            }else if(stringified == JSON.stringify(itemTypes.enemy)){
-                scene.enemiesArr.push(new Enemies.Enemy(scene.enemies,scene.enemiesArr, COLORS.green, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i)));
+            switch((level.pixels[i][j][2]<<16)|(level.pixels[i][j][1]<<8)|(level.pixels[i][j][0])){
+                //Platforms.
+                case(0x000000):scene.platformsArr.push(new Platform(scene.platforms, COLORS.black,  positionToPx(j), positionToPx(i)));break;
+                case(0x760c0c):scene.platformsArr.push(new Platform(scene.platforms, COLORS.red,    positionToPx(j), positionToPx(i)));break;
+                case(0x000055):scene.platformsArr.push(new Platform(scene.platforms, COLORS.blue,   positionToPx(j), positionToPx(i)));break;
+                case(0x6f7700):scene.platformsArr.push(new Platform(scene.platforms, COLORS.yellow, positionToPx(j), positionToPx(i)));break;
+                case(0x005500):scene.platformsArr.push(new Platform(scene.platforms, COLORS.green,  positionToPx(j), positionToPx(i)));break;
+                case(0x572900):scene.platformsArr.push(new Platform(scene.platforms, COLORS.orange, positionToPx(j), positionToPx(i)));break;
+                case(0x39005f):scene.platformsArr.push(new Platform(scene.platforms, COLORS.purple, positionToPx(j), positionToPx(i)));break;
+                //Enemies.
+                case(0xfd0000):scene.enemiesArr.push(new Enemies.Enemy(scene.enemies,scene.enemiesArr, COLORS.red, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0x0000fd):scene.enemiesArr.push(new Enemies.Enemy(scene.enemies,scene.enemiesArr, COLORS.blue, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0xfdfd00):scene.enemiesArr.push(new Enemies.Enemy(scene.enemies,scene.enemiesArr, COLORS.yellow, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0x00fd00):scene.enemiesArr.push(new Enemies.Enemy(scene.enemies,scene.enemiesArr, COLORS.green, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0xfd7700):scene.enemiesArr.push(new Enemies.Enemy(scene.enemies,scene.enemiesArr, COLORS.orange, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0xfd00fd):scene.enemiesArr.push(new Enemies.Enemy(scene.enemies,scene.enemiesArr, COLORS.purple, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0x7c6565):scene.enemiesArr.push(new Enemies.Enemy(scene.enemies,scene.enemiesArr, COLORS.white, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
+                //Fountains.
+                case(0x6D2F38):console.log("Fountain red.");break;
+                case(0x2F526D):console.log("Fountain blue.");break;
+                case(0x6B6739):console.log("Fountain yellow.");break;
+                case(0x317533):console.log("Fountain green.");break;
+                case(0xFD5E31):console.log("Fountain orange.");break;
+                case(0x6631FD):console.log("Fountain purple.");break;
+                case(0x26363C):console.log("Fountain white.");break;
+                //Players.
+                case(0xfd46fd):scene.player = new Player(scene, COLORS.red, MAX_PLAYER_HEALTH, positionToPx(j), positionToPx(i));break;
+                case(0x3dfdfd):scene.player = new Player(scene, COLORS.blue, MAX_PLAYER_HEALTH, positionToPx(j), positionToPx(i));break;
+                case(0xfdfd3a):scene.player = new Player(scene, COLORS.yellow, MAX_PLAYER_HEALTH, positionToPx(j), positionToPx(i));break;
+                case(0x1e6420):scene.player = new Player(scene, COLORS.green, MAX_PLAYER_HEALTH, positionToPx(j), positionToPx(i));break;
+                case(0x64441e):scene.player = new Player(scene, COLORS.orange, MAX_PLAYER_HEALTH, positionToPx(j), positionToPx(i));break;
+                case(0x641e58):scene.player = new Player(scene, COLORS.purple, MAX_PLAYER_HEALTH, positionToPx(j), positionToPx(i));break;
+                case(0x41323e):scene.player = new Player(scene, COLORS.white, MAX_PLAYER_HEALTH, positionToPx(j), positionToPx(i));break;
+                //Bucket.
+                case(0x756754):console.log("Bucket");break;
             }
-            
 			j += 1;
 		}
         
