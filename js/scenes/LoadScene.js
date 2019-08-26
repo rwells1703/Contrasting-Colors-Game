@@ -10,7 +10,7 @@ export class LoadScene extends Phaser.Scene{
 
 		this.load.spritesheet('platform', 'assets/sprites/wall.png', {frameWidth: 64, frameHeight: 64});
 
-        this.load.spritesheet('paintBlob', 'assets/sprites/paintBlob.png', {frameWidth: 24, frameHeight: 24});
+        this.load.spritesheet('paintBlob', 'assets/sprites/paintBlob.png', {frameWidth: 15, frameHeight: 15});
         
         this.load.spritesheet('enemy', 'assets/sprites/enemy.png', {frameWidth: 32, frameHeight: 64});
         
@@ -29,6 +29,7 @@ export class LoadScene extends Phaser.Scene{
         this.loadAnimations("player",COLORS.white,1,1,true);
         this.loadAnimations("enemy",COLORS.white,4,4,true);
         this.loadAnimations("platform",COLORS.black,1,1,false);
+        this.loadAnimations("paintBlob",COLORS.white,1,1,false);
 		this.scene.start(SCENES.MENUSCENE);
 	}
 
