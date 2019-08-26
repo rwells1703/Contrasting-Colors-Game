@@ -1,6 +1,8 @@
 import {LoadScene} from './scenes/LoadScene.js';
 import {MenuScene} from './scenes/MenuScene.js';
+import {HelpScene} from './scenes/HelpScene.js';
 import {GameScene} from './scenes/GameScene.js';
+
 import {GFS} from "./constants.js";
 
 let config = {	
@@ -18,7 +20,7 @@ let config = {
                 debug: true
             }
     },
-	scene: [LoadScene, MenuScene, GameScene]
+	scene: [LoadScene, MenuScene, HelpScene, GameScene]
 }
 
 let game = new Phaser.Game(config);
