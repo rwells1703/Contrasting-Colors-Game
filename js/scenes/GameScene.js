@@ -17,9 +17,6 @@ export class GameScene extends Phaser.Scene{
 	}
 
 	create(){
-		let jon = [1,2,3,4]
-		console.log(jon.splice(2,1));
-		console.log(jon);
 		// Platform sprites that make up the design of the level
 		this.platforms = this.physics.add.staticGroup();
 		this.platformsArr = [];
@@ -59,7 +56,19 @@ export class GameScene extends Phaser.Scene{
 		});
 
 		//blob bounces off platforms
-		this.physics.add.collider(this.blobs,this.platforms);
+		this.physics.add.collider(this.blobs,this.platforms, (blobSprite,platformSprite)=>{
+			let theBlobObj = this.blobsArr.filter(blobObj=>blobObj.sprite==blobSprite)[0];
+			let thePlatformObj = this.platformsArr.filter(platformObj=>platformObj.sprite==platformSprite)[0];
+
+
+			if(thePlatformObj.color == theBlobObj.color){
+
+			}else if(oppositeColor(thePlatformObj.color,theBlobObj.color)){
+				destroyEntity(theBlobObj,this.blobsArr);
+			}else if (theBlobObj.checkTooSlow()){
+				destroyEntity(theBlobObj,this.blobsArr);
+			}
+		});
 
 
 		
@@ -79,13 +88,12 @@ export class GameScene extends Phaser.Scene{
 			if(enemyColor == blobColor){
 
 			}else if(oppositeColor(enemyColor,blobColor)){
-				theBlobObj.destroy();
-				this.blobsArr.splice(this.blobsArr.indexOf(theBlobObj),1);
+				destroyEntity(theBlobObj,this.blobsArr);
 
 				theEnemyObj.damage(1);
 			}else{
 				theBlobObj.destroy();
-				this.blobsArr.splice(this.blobsArr.indexOf(theBlobObj),1);
+				destroyEntity(theBlobObj,this.blobsArr);
 
 			}
 
@@ -139,5 +147,10 @@ function changePlayerColor(player,fountain){
 }
 
 function oppositeColor(c1,c2){
-	return true;
+	return false;
+}
+
+function destroyEntity(entity,arr){
+	entity.destroy();
+	arr.splice(arr.indexOf(entity),1);
 }

@@ -20,7 +20,9 @@ export const GFS = 1500;
 export const JUMPVEOLCITY = -700;
 
 export const PBLOBLAUNCH = 800;
-export const BLOBOFFSETCOEFF = 32;
+export const BLOBBOUNCECOEFF = 0.7;
+export const BLOBMINSPEED = 500;
+export const BLOBMINYVEL = 100;
 
 export const MAX_PLAYER_HEALTH = 3;
 export const MAX_ENEMY_HEALTH = 1;
