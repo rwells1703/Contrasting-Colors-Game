@@ -4,7 +4,7 @@ import * as Util from './utils.js'
 export class Enemy extends ColorEntity{
     constructor (group,arr, color, health, x, y) {
         super();
-        this.arr=arr;
+        this.arr = arr;
         this.health = health;
         this.sprite = group.create(x, y, "enemy");
         this.changeColor(color);
@@ -33,15 +33,15 @@ export class Enemy extends ColorEntity{
 
 
 export class BouncingEnemy extends Enemy{
-	constructor(group, color, health, x, y){
-		super(group, color, health, x, y);
-		this.sprite.setBounce(1);
-	}
+    constructor(group, color, health, x, y){
+        super(group, color, health, x, y);
+        this.sprite.setBounce(1);
+    }
 }
 
 export class BossEnemy extends Enemy{
-	constructor(group, color, x, y){
-		super(group, color, 100, x, y);
-		this.sprite = group.create(x, y, "boss-enemy");
-	}
+    constructor(group, color, x, y){
+        super(group, color, 100, x, y);
+        this.sprite = group.create(x, y, "boss-enemy");
+    }
 }

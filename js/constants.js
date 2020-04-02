@@ -1,8 +1,8 @@
 export const SCENES = {
-	LOADSCENE: "LoadScene",
-	MENUSCENE: "MenuScene",
-	HELPSCENE: "HelpScene",
-	GAMESCENE: "GameScene"
+    LOADSCENE: "LoadScene",
+    MENUSCENE: "MenuScene",
+    HELPSCENE: "HelpScene",
+    GAMESCENE: "GameScene"
 };
 /* Note on COLORS. The bits are as follows: XXRBY.
  * R is to specify whether they are in the red family (so red, green or white.) Similar for B and Y.
