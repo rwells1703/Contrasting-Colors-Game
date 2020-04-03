@@ -1,10 +1,11 @@
-import * as CON from "../constants.js";
-import {ColorEntity} from './colorEntity.js'
+import * as CON from "../Constants.js";
+import {ColorEntity} from './ColorEntity.js'
 
 export class Player extends ColorEntity {
-    constructor (scene, color, health, x, y) {
+    constructor (scene, color, x, y) {
         super();
-        this.health = health;
+        this.name = 'player';
+        this.health = CON.MAX_PLAYER_HEALTH;
         this.sprite = scene.physics.add.sprite(x, y, 'player');
         this.changeColor(color);
         this.sprite.setBounce(0.15);
@@ -58,12 +59,10 @@ export class Player extends ColorEntity {
         this.setAnimation();
     }
 
-    damage(damValue){
+    damage(damValue) {
         this.health -= damValue;
-        if (this.health <= 0){
+        if (this.health <= 0) {
             this.health = 0;
         }
     }
-
-    getAnimationSuperName(){return "player";}
 }

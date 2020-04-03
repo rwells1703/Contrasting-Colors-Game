@@ -1,17 +1,15 @@
 import * as CON from "../constants.js";
-import {SCENES} from "../constants.js";
 
-export class MenuScene extends Phaser.Scene{
-    constructor(){
-        super({key: SCENES.MENUSCENE});
+export class MenuScene extends Phaser.Scene {
+    constructor() {
+        super({key: CON.SCENES.MENUSCENE});
     }
 
-    create(){
+    create() {
         WebFont.load({
-            google: {families: [ 'Finger Paint' ]},
-            active: ()=>
-            {
-                this.gameTitle = this.add.text(100, 350, 'Contrasting Colors', { font: "50px Finger Paint", fontColor:"red"});
+            google: {families: ['Finger Paint']},
+            active: ()=> {
+                this.gameTitle = this.add.text(100, 350, 'Contrasting Colors', {font: "50px Finger Paint", fontColor:"red"});
             }
         });
 
@@ -22,22 +20,22 @@ export class MenuScene extends Phaser.Scene{
 
         this.startButton = this.add.text(100, 200, "Start game", CON.BUTTON_FONT);
         this.startButton.setInteractive()
-                    .on("pointerover", ()=>this.startButton.setColor("red"))
-                    .on("pointerout", ()=>this.startButton.setColor("white"))
-                    .on("pointerdown", ()=>{
-                        this.btnSoundFX.play();
-                        this.scene.start(SCENES.GAMESCENE, {levelNum: 1});
-                    });
+                        .on("pointerover", () => this.startButton.setColor("red"))
+                        .on("pointerout", () => this.startButton.setColor("white"))
+                        .on("pointerdown", () => {
+                            this.btnSoundFX.play();
+                            this.scene.start(CON.SCENES.GAMESCENE, {levelNum: 1});
+                        });
 
 
         this.helpButton = this.add.text(100, 230, "Help", CON.BUTTON_FONT);
         this.helpButton.setInteractive()
-                    .on("pointerover", ()=>this.helpButton.setColor("blue"))
-                    .on("pointerout", ()=>this.helpButton.setColor("white"))
-                    .on("pointerdown", ()=>{
-                        this.btnSoundFX.play();
-                        this.scene.start(SCENES.HELPSCENE);
-                    });
+                        .on("pointerover", () => this.helpButton.setColor("blue"))
+                        .on("pointerout", () => this.helpButton.setColor("white"))
+                        .on("pointerdown", () => {
+                            this.btnSoundFX.play();
+                            this.scene.start(CON.SCENES.HELPSCENE);
+                        });
 
         this.tweens.add({
             targets: [this.title, this.gameTitle],
@@ -49,6 +47,5 @@ export class MenuScene extends Phaser.Scene{
         });
 
         this.credits = this.add.text(100, 500, "Developed by me and the boys");
-
     }
 }

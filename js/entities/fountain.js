@@ -1,13 +1,10 @@
-import {ColorEntity} from './colorEntity.js'
+import {ColorEntity} from './ColorEntity.js'
 
-export class Fountain extends ColorEntity{
-    constructor(group, color, x, y){
+export class Fountain extends ColorEntity {
+    constructor(group, color, x, y) {
         super();
+        this.name = "fountain";
         this.sprite = group.create(x, y, 'fountain');
         this.changeColor(color);
-    }
-
-    setAnimation(){
-        this.sprite.anims.play('fountain' + this.color + "R", true);
     }
 }

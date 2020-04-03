@@ -3,8 +3,6 @@ import {MenuScene} from './scenes/MenuScene.js';
 import {HelpScene} from './scenes/HelpScene.js';
 import {GameScene} from './scenes/GameScene.js';
 
-import {GFS} from "./constants.js";
-
 let config = {
     type: Phaser.AUTO,
     scale: {
@@ -13,13 +11,6 @@ let config = {
     },
     width: 1024, // 64 * 16
     height: 576, // 64 * 9
-    physics: {
-        default: "arcade",
-            arcade: {
-                gravity: {y: GFS},
-                debug: true
-            }
-    },
     scene: [LoadScene, MenuScene, HelpScene, GameScene]
 }
 

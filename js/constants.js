@@ -4,20 +4,21 @@ export const SCENES = {
     HELPSCENE: "HelpScene",
     GAMESCENE: "GameScene"
 };
+
 /* Note on COLORS. The bits are as follows: XXRBY.
  * R is to specify whether they are in the red family (so red, green or white.) Similar for B and Y.
  * XX is to specify "class" - whether it is a primary, secondary, etc. color. 00 is for primary, 01 is for secondary.
  * Colors are considered contrasting (so do damage to each other), if they both share a family (e.g both are in R (even if only 1 is in B)) and are not in the same class.
 */
 export const COLORS = {
-    "red":      0b00100,
-    "blue":     0b00010,
-    "yellow":   0b00001,
-    "green":    0b01100,
-    "orange":   0b01010,
-    "purple":   0b01001,
-    "white":    0b10111,
-    "black":    0b11000
+    RED:      0b00100,
+    BLUE:     0b00010,
+    YELLOW:   0b00001,
+    GREEN:    0b01100,
+    ORANGE:   0b01010,
+    PURPLE:   0b01001,
+    WHITE:    0b10111,
+    BLACK:    0b11000
 };
 
 export const TEXTURE_SIZE = 64;
