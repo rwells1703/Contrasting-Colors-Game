@@ -6,6 +6,7 @@ export class PaintBlob extends ColorEntity {
     constructor(arr, group, color, x, y, velocityX, velocityY) {
         super();
         this.name = 'paintBlob';
+        this.directional = false;
         this.sprite = group.create(x, y, 'paintBlob');
         this.arr = arr;
         this.bounceCount = 0;
@@ -15,7 +16,7 @@ export class PaintBlob extends ColorEntity {
     }
 
     setAnimation() {
-        this.sprite.anims.play('paintBlob' + this.color + "R", true);
+        this.sprite.anims.play('paintBlob' + this.color, true);
     }
 
     checkTooSlow() {

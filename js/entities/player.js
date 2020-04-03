@@ -5,6 +5,7 @@ export class Player extends ColorEntity {
     constructor (scene, color, x, y) {
         super();
         this.name = 'player';
+        this.directional = true;
         this.health = CON.MAX_PLAYER_HEALTH;
         this.sprite = scene.physics.add.sprite(x, y, 'player');
         this.changeColor(color);

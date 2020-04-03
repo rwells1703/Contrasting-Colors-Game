@@ -1,4 +1,4 @@
-import * as CON from '../constants.js';
+import * as CON from '../Constants.js';
 
 export class HelpScene extends Phaser.Scene {
     constructor() {

@@ -5,10 +5,14 @@ export class ColorEntity {
     }
 
     setAnimation() {
-        if (this.sprite.body.velocity.x < 0) {
-            var direction = "L"
+        if (this.directional) {
+            if (this.sprite.body.velocity.x < 0) {
+                var direction = "L";
+            } else {
+                var direction = "R";
+            }
         } else {
-            var direction = "R"
+            var direction = "";
         }
 
         this.sprite.anims.play(this.name + this.color + direction, true);

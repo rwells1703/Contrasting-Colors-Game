@@ -4,10 +4,11 @@ import * as Util from './Utils.js'
 export class Enemy extends ColorEntity {
     constructor (group, arr, color, health, x, y) {
         super();
-        this.name = "enemy";
+        this.name = 'enemy';
+        this.directional = true;
         this.arr = arr;
         this.health = health;
-        this.sprite = group.create(x, y, "enemy");
+        this.sprite = group.create(x, y, 'enemy');
         this.changeColor(color);
         this.sprite.setBounce(0.2);
         this.speed = Math.floor(50 + Math.random()*100);

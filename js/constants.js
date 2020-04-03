@@ -45,5 +45,5 @@ export const MAX_PLAYER_HEALTH = 1;
 export const MAX_ENEMY_HEALTH = 1;
 export const MAX_BOSS_HEALTH = 15;
 
-export const TITLE_FONT = {font: "40px Impact"};
-export const BUTTON_FONT = {font: "20px Impact"};
+export const TITLE_FONT = {font: "50px Impact"};
+export const BUTTON_FONT = {font: "30px Impact"};

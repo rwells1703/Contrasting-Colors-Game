@@ -1,4 +1,4 @@
-import * as CON from '../constants.js';
+import * as CON from '../Constants.js';
 
 export class LoadScene extends Phaser.Scene {
     constructor() {
@@ -26,30 +26,31 @@ export class LoadScene extends Phaser.Scene {
         this.loadAnimations("enemy", CON.COLORS.WHITE, 4, 4, true);
         this.loadAnimations("platform", CON.COLORS.BLACK, 1, 1, false);
         this.loadAnimations("paintBlob", CON.COLORS.WHITE, 1, 1, false);
-        this.loadAnimations("fountain", CON.COLORS.WHITE, 1, 1, false);
+        this.loadAnimations("fountain", CON.COLORS.WHITE, 2, 1, false);
 
         this.scene.start(CON.SCENES.MENUSCENE);
+        //this.scene.start(CON.SCENES.GAMESCENE);
     }
 
-    loadAnimations(spriteKey, extraColorKey, framesPerColor, frameRate, addLeftToo) {
+    loadAnimations(spriteKey, extraColorKey, framesPerColor, frameRate, directional) {
         let colors = [CON.COLORS.RED, CON.COLORS.BLUE, CON.COLORS.YELLOW, CON.COLORS.GREEN, CON.COLORS.ORANGE, CON.COLORS.PURPLE, extraColorKey];
         let offset = 0;
-        for (let i = 0; i < 7; i++){
-            this.anims.create({
-                key: spriteKey + colors[i] + "R",
-                frames: this.anims.generateFrameNumbers(spriteKey, {start: offset, end: offset + framesPerColor - 1}),
-                frameRate: frameRate,
-                repeat: -1
-            });
 
-            offset += framesPerColor;
-            if (addLeftToo) {
+        for (let i = 0; i < 7; i++) {
+            if (directional) {
+                var animationKeyExtensions = ["R", "L"];
+            } else {
+                var animationKeyExtensions = [""];
+            }
+
+            for (let animationKeyExtension of animationKeyExtensions) {
                 this.anims.create({
-                    key: spriteKey + colors[i] + "L",
+                    key: spriteKey + colors[i] + animationKeyExtension,
                     frames: this.anims.generateFrameNumbers(spriteKey, {start: offset, end: offset + framesPerColor - 1}),
                     frameRate: frameRate,
                     repeat: -1
                 });
+
                 offset += framesPerColor;
             }
         }

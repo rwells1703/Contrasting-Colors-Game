@@ -1,4 +1,4 @@
-import * as CON from "../constants.js";
+import * as CON from "../Constants.js";
 
 export class MenuScene extends Phaser.Scene {
     constructor() {

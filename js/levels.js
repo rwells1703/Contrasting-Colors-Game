@@ -1,7 +1,8 @@
-import * as CON from './constants.js';
+import * as CON from './Constants.js';
 import {Player} from './entities/Player.js'
 import * as Enemies from './entities/Enemy.js'
 import {Platform} from './entities/Platform.js'
+import {Fountain} from './entities/Fountain.js';
 
 function stringToArrayBuffer(string) {
     var buffer = new ArrayBuffer(string.length);
@@ -14,7 +15,7 @@ function stringToArrayBuffer(string) {
     }
 
     return buffer;
-}
+}   
 
 function readLevelData(levelString) {
     let bufferArray = stringToArrayBuffer(levelString);
@@ -68,15 +69,16 @@ export function loadLevel(scene, levelKey) {
 	while (i < level.height) {
 		let j = 0;
 		while (j < level.width) {
+            // Each Hex value relates to a pixel color and its corresponding game object
             switch((level.pixels[i][j][2]<<16)|(level.pixels[i][j][1]<<8)|(level.pixels[i][j][0])) {
-                // Each Hex value relates to a pixel color and its corresponding game object
                 // Platforms.
-                case(0x000000):scene.platformsArr.push(new Platform(scene.platforms, CON.COLORS.BLACK,  positionToPx(j), positionToPx(i)));break;
+                case(0x760c0c):scene.platformsArr.push(new Platform(scene.platforms, CON.COLORS.RED,  positionToPx(j), positionToPx(i)));break;
                 case(0x000055):scene.platformsArr.push(new Platform(scene.platforms, CON.COLORS.BLUE,   positionToPx(j), positionToPx(i)));break;
                 case(0x6f7700):scene.platformsArr.push(new Platform(scene.platforms, CON.COLORS.YELLOW, positionToPx(j), positionToPx(i)));break;
                 case(0x005500):scene.platformsArr.push(new Platform(scene.platforms, CON.COLORS.GREEN,  positionToPx(j), positionToPx(i)));break;
                 case(0x572900):scene.platformsArr.push(new Platform(scene.platforms, CON.COLORS.ORANGE, positionToPx(j), positionToPx(i)));break;
                 case(0x39005f):scene.platformsArr.push(new Platform(scene.platforms, CON.COLORS.PURPLE, positionToPx(j), positionToPx(i)));break;
+                case(0x000000):scene.platformsArr.push(new Platform(scene.platforms, CON.COLORS.BLACK,  positionToPx(j), positionToPx(i)));break;
                 
                 // Enemies.
                 case(0xfd0000):scene.enemiesArr.push(new Enemies.Enemy(scene.enemies, scene.enemiesArr, CON.COLORS.RED, CON.MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
@@ -88,13 +90,13 @@ export function loadLevel(scene, levelKey) {
                 case(0x7c6565):scene.enemiesArr.push(new Enemies.Enemy(scene.enemies, scene.enemiesArr, CON.COLORS.WHITE, CON.MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
                 
                 // Fountains.
-                case(0x6D2F38):console.log("Fountain red.");break;
-                case(0x2F526D):console.log("Fountain blue.");break;
-                case(0x6B6739):console.log("Fountain yellow.");break;
-                case(0x317533):console.log("Fountain green.");break;
-                case(0xFD5E31):console.log("Fountain orange.");break;
-                case(0x6631FD):console.log("Fountain purple.");break;
-                case(0x26363C):console.log("Fountain white.");break;
+                case(0x6D2F38):scene.fountainsArr.push(new Fountain(scene.fountains, CON.COLORS.RED, positionToPx(j), positionToPx(i)));break;
+                case(0x2F526D):scene.fountainsArr.push(new Fountain(scene.fountains, CON.COLORS.BLUE, positionToPx(j), positionToPx(i)));break;
+                case(0x6B6739):scene.fountainsArr.push(new Fountain(scene.fountains, CON.COLORS.YELLOW, positionToPx(j), positionToPx(i)));break;
+                case(0x317533):scene.fountainsArr.push(new Fountain(scene.fountains, CON.COLORS.GREEN, positionToPx(j), positionToPx(i)));break;
+                case(0xFD5E31):scene.fountainsArr.push(new Fountain(scene.fountains, CON.COLORS.ORANGE, positionToPx(j), positionToPx(i)));break;
+                case(0x6631FD):scene.fountainsArr.push(new Fountain(scene.fountains, CON.COLORS.PURPLE, positionToPx(j), positionToPx(i)));break;
+                case(0x26363C):scene.fountainsArr.push(new Fountain(scene.fountains, CON.COLORS.WHITE, positionToPx(j), positionToPx(i)));break;
                 
                 // Players.
                 case(0xfd46fd):scene.player = new Player(scene, CON.COLORS.RED, positionToPx(j), positionToPx(i));break;
