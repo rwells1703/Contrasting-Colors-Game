@@ -1,16 +1,16 @@
-import * as CON from '../Constants.js'
-import {loadLevel, positionToPx} from "../Levels.js";
-import * as Utils from '../entities/Utils.js'
-import {HealthBar} from '../HealthBar.js'
+import { SCENES, GFS, BLOBTIMEOUT, PBLOBLAUNCH, TEXTURE_SIZE, MAX_PLAYER_HEALTH } from '../Constants.js';
+import { loadLevel } from "../LoadLevel.js";
+import { updatePlayerPlatformColliders, hurlBlob, doesColourDoDamage, destroyEntity } from '../entities/Utils.js'
+import { HealthBar } from '../HealthBar.js'
 
 export class GameScene extends Phaser.Scene {
     constructor() {
         super({
-            key: CON.SCENES.GAMESCENE,
+            key: SCENES.GAMESCENE,
             physics: {
                 default: "arcade",
                 arcade: {
-                    gravity: {y: CON.GFS},
+                    gravity: {y: GFS},
                 }
             },
             backgroundColor: Phaser.Display.Color.blue
@@ -45,22 +45,22 @@ export class GameScene extends Phaser.Scene {
         this.fountainsArr = [];
 
         // Set blobCounter so that the player can shoot
-        this.blobCounter = CON.BLOBTIMEOUT;
+        this.blobCounter = BLOBTIMEOUT;
         this.prevBlobCounter = 0;
 
         let [level_width, level_height] = loadLevel(this, 'level' + this.levelNum);
 
         this.playerPlatformColliders = [];
-        Utils.updatePlayerPlatformColliders(this);
+        updatePlayerPlatformColliders(this);
 
         //create Blob group
         this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop
         this.blobsArr = [];
         this.input.on('pointerdown', pointer=>{
-            if ((this.blobCounter - this.prevBlobCounter) > CON.BLOBTIMEOUT) {
-                this.blobsArr.push(Utils.hurlBlob(this.blobsArr, this.blobs, this.player.color,
+            if ((this.blobCounter - this.prevBlobCounter) > BLOBTIMEOUT) {
+                this.blobsArr.push(hurlBlob(this.blobsArr, this.blobs, this.player.color,
                                             this.player.sprite.x, this.player.sprite.y, 
-                                            pointer.worldX, pointer.worldY, CON.PBLOBLAUNCH)
+                                            pointer.worldX, pointer.worldY, PBLOBLAUNCH)
                 );
                 this.prevBlobCounter = this.blobCounter;
             }
@@ -71,10 +71,8 @@ export class GameScene extends Phaser.Scene {
             let theBlobObj = this.blobsArr.filter(blobObj => blobObj.sprite == blobSprite)[0];
             let thePlatformObj = this.platformsArr.filter(platformObj => platformObj.sprite == platformSprite)[0];
 
-            console.log(theBlobObj.color);
-            console.log(thePlatformObj.color);
-            if (Utils.doesColourDoDamage(thePlatformObj.color, theBlobObj.color)){
-                Utils.destroyEntity(theBlobObj, this.blobsArr);
+            if (doesColourDoDamage(thePlatformObj.color, theBlobObj.color)){
+                destroyEntity(theBlobObj, this.blobsArr);
             } else if (thePlatformObj.color == theBlobObj.color) {
                 // do nothing
             } else {
@@ -92,13 +90,13 @@ export class GameScene extends Phaser.Scene {
             let enemyColor = theEnemyObj.color;
             let blobColor = theBlobObj.color;
 
-            if (Utils.doesColourDoDamage(enemyColor, blobColor)){
-                Utils.destroyEntity(theBlobObj, this.blobsArr);
+            if (doesColourDoDamage(enemyColor, blobColor)){
+                destroyEntity(theBlobObj, this.blobsArr);
 
                 theEnemyObj.damage(1);
             } else {
                 theBlobObj.destroy();
-                Utils.destroyEntity(theBlobObj, this.blobsArr);
+                destroyEntity(theBlobObj, this.blobsArr);
             }
         });
 
@@ -115,23 +113,23 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.overlap(this.player.sprite, this.fountains, (playerSprite, fountainSprite)=>{
             let theFountainObj = this.fountainsArr.filter(fountainObj => fountainObj.sprite == fountainSprite)[0];
             this.player.changeColor(theFountainObj.color);
-            Utils.updatePlayerPlatformColliders(this);
+            updatePlayerPlatformColliders(this);
         });
 
         this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#000e1f");
         this.cameras.main.startFollow(this.player.sprite);
         //can't see "outside" of the world boundaries where no game exists
-        this.cameras.main.setBounds(0, 0, level_width*CON.TEXTURE_SIZE, level_height*CON.TEXTURE_SIZE);
+        this.cameras.main.setBounds(0, 0, level_width*TEXTURE_SIZE, level_height*TEXTURE_SIZE);
 
         this.HealthBar = new HealthBar(this);
-        this.player.health = CON.MAX_PLAYER_HEALTH;
+        this.player.health = MAX_PLAYER_HEALTH;
     }
 
     update(delta) {
         if (!this.levelComplete) {
             // If the level is continuing
             //update health bar every frame
-            this.HealthBar.setPercent(this.player.health/CON.MAX_PLAYER_HEALTH);
+            this.HealthBar.setPercent(this.player.health/MAX_PLAYER_HEALTH);
             //handles keyboard input every frame
             this.player.update(this, delta);
             for (let enemy of this.enemiesArr) {
@@ -144,7 +142,7 @@ export class GameScene extends Phaser.Scene {
             this.events.off();
 
             // Close this level and begin the next level
-            this.scene.start(CON.SCENES.GAMESCENE, {levelNum: this.levelNum + 1});
+            this.scene.start(SCENES.GAMESCENE, {levelNum: this.levelNum + 1});
         }
     }
 }

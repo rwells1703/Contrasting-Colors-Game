@@ -1,12 +1,12 @@
-import * as CON from "../Constants.js";
-import {ColorEntity} from './ColorEntity.js'
+import { ColorEntity } from './ColorEntity.js';
+import { MAX_PLAYER_HEALTH, JUMPVEOLCITY, LOCOMOTIVE, FRICTCOEFF, AIRCOEFF, DRAGCOEFF, XDROPOFF } from "../Constants.js";
 
 export class Player extends ColorEntity {
     constructor (scene, color, x, y) {
         super();
         this.name = 'player';
         this.directional = true;
-        this.health = CON.MAX_PLAYER_HEALTH;
+        this.health = MAX_PLAYER_HEALTH;
         this.sprite = scene.physics.add.sprite(x, y, 'player');
         this.changeColor(color);
         this.sprite.setBounce(0.15);
@@ -28,29 +28,29 @@ export class Player extends ColorEntity {
 
         // Applies jumping velocity if on the floor
         if (this.cursors.up.isDown && this.sprite.body.touching.down) {
-            this.sprite.setVelocityY(CON.JUMPVEOLCITY);
+            this.sprite.setVelocityY(JUMPVEOLCITY);
         }
 
         let xvel = this.sprite.body.velocity.x;
 
         // Applies the direction of travel
-        velta = CON.LOCOMOTIVE*direction;
+        velta = LOCOMOTIVE*direction;
 
         if (this.sprite.body.touching.down) {
             // Applies friction to change of velocity if on ground
-            velta = velta * CON.FRICTCOEFF;
+            velta = velta * FRICTCOEFF;
         } else {
             // Otherwise applied air resistance
-            velta = velta * CON.AIRCOEFF;
+            velta = velta * AIRCOEFF;
         }
 
         // Changes player velocity by velta
         xvel = xvel + velta;
         // Applies drag to player velocity
-        xvel = xvel * CON.DRAGCOEFF;
+        xvel = xvel * DRAGCOEFF;
 
         // If the magnitude of the velocity is below the critical value, just set it to 0
-        if (Math.abs(xvel) < CON.XDROPOFF) {
+        if (Math.abs(xvel) < XDROPOFF) {
             xvel = 0;
         }
 

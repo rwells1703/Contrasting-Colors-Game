@@ -1,6 +1,6 @@
-import {ColorEntity} from './ColorEntity.js';
-import {BLOBMINSPEED, BLOBMINYVEL, BLOBBOUNCECOEFF, MAXBLOBBOUNCES} from '../Constants.js';
-import {destroyEntity} from './Utils.js'
+import { ColorEntity } from './ColorEntity.js';
+import { BLOBBOUNCECOEFF, MAXBLOBBOUNCES } from '../Constants.js';
+import { destroyEntity } from './Utils.js';
 
 export class PaintBlob extends ColorEntity {
     constructor(arr, group, color, x, y, velocityX, velocityY) {
@@ -19,22 +19,11 @@ export class PaintBlob extends ColorEntity {
         this.sprite.anims.play('paintBlob' + this.color, true);
     }
 
-    checkTooSlow() {
-        console.log(Math.abs(this.sprite.body.velocity.y));
-        if (this.sprite.body.speed < BLOBMINSPEED) {
-            return true;
-        } else if (Math.abs(this.sprite.body.velocity.y) < BLOBMINYVEL) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     addBounce() {
         this.bounceCount++
 
         if (this.bounceCount >= MAXBLOBBOUNCES) {
-            destroyEntity(this, this.arr)
+            destroyEntity(this, this.arr);
         }
     }
 }

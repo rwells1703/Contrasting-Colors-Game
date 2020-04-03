@@ -1,8 +1,8 @@
-import * as CON from '../Constants.js';
+import { SCENES, COLORS } from '../Constants.js';
 
 export class LoadScene extends Phaser.Scene {
     constructor() {
-        super({key: CON.SCENES.LOADSCENE});
+        super({key: SCENES.LOADSCENE});
     }
 
     preload() {
@@ -22,18 +22,18 @@ export class LoadScene extends Phaser.Scene {
     }
 
     create() {
-        this.loadAnimations("player", CON.COLORS.WHITE, 1, 1, true);
-        this.loadAnimations("enemy", CON.COLORS.WHITE, 4, 4, true);
-        this.loadAnimations("platform", CON.COLORS.BLACK, 1, 1, false);
-        this.loadAnimations("paintBlob", CON.COLORS.WHITE, 1, 1, false);
-        this.loadAnimations("fountain", CON.COLORS.WHITE, 2, 1, false);
+        this.loadAnimations("player", COLORS.WHITE, 1, 1, true);
+        this.loadAnimations("enemy", COLORS.WHITE, 4, 4, true);
+        this.loadAnimations("platform", COLORS.BLACK, 1, 1, false);
+        this.loadAnimations("paintBlob", COLORS.WHITE, 1, 1, false);
+        this.loadAnimations("fountain", COLORS.WHITE, 2, 1, false);
 
-        this.scene.start(CON.SCENES.MENUSCENE);
-        //this.scene.start(CON.SCENES.GAMESCENE);
+        this.scene.start(SCENES.MENUSCENE);
+        //this.scene.start(SCENES.GAMESCENE);
     }
 
     loadAnimations(spriteKey, extraColorKey, framesPerColor, frameRate, directional) {
-        let colors = [CON.COLORS.RED, CON.COLORS.BLUE, CON.COLORS.YELLOW, CON.COLORS.GREEN, CON.COLORS.ORANGE, CON.COLORS.PURPLE, extraColorKey];
+        let colors = [COLORS.RED, COLORS.BLUE, COLORS.YELLOW, COLORS.GREEN, COLORS.ORANGE, COLORS.PURPLE, extraColorKey];
         let offset = 0;
 
         for (let i = 0; i < 7; i++) {

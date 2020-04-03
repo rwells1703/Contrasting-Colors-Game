@@ -1,4 +1,4 @@
-import {PaintBlob} from "./PaintBlob.js"
+import { PaintBlob } from "./PaintBlob.js"
 
 export function hurlBlob(scene, group, color, originx, originy, targetx, targety, maxSpeed) {
     let xvec = targetx - originx;

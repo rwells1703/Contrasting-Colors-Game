@@ -1,4 +1,4 @@
-import * as CON from '../Constants.js';
+import { TITLE_FONT, BUTTON_FONT, SCENES } from '../Constants.js';
 
 export class HelpScene extends Phaser.Scene {
     constructor() {
@@ -9,7 +9,7 @@ export class HelpScene extends Phaser.Scene {
         console.log("yes");
         this.btnSoundFX = this.sound.add("buttonSound");
 
-        this.title = this.add.text(100, 100, "Help", CON.TITLE_FONT);
+        this.title = this.add.text(100, 100, "Help", TITLE_FONT);
 
         this.helpText = this.add.text(100, 200, "Splat! Spling! Slosh!\nThe sassy spraycans are taking over. Poor paintbrushes!");
 
@@ -22,13 +22,13 @@ export class HelpScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.backBtn = this.add.text(100, 500, "Back to main menu", CON.BUTTON_FONT);
+        this.backBtn = this.add.text(100, 500, "Back to main menu", BUTTON_FONT);
         this.backBtn.setInteractive()
                     .on("pointerover", () => this.backBtn.setColor("green"))
                     .on("pointerout", () => this.backBtn.setColor("white"))
                     .on("pointerdown", () => {
                         this.btnSoundFX.play();
-                        this.scene.start(CON.SCENES.MENUSCENE);
+                        this.scene.start(SCENES.MENUSCENE);
                     });
     }
 }

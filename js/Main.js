@@ -1,7 +1,7 @@
-import {LoadScene} from './scenes/LoadScene.js';
-import {MenuScene} from './scenes/MenuScene.js';
-import {HelpScene} from './scenes/HelpScene.js';
-import {GameScene} from './scenes/GameScene.js';
+import { LoadScene } from './scenes/LoadScene.js';
+import { MenuScene } from './scenes/MenuScene.js';
+import { HelpScene } from './scenes/HelpScene.js';
+import { GameScene } from './scenes/GameScene.js';
 
 let config = {
     type: Phaser.AUTO,

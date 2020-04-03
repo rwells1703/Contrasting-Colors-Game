@@ -1,8 +1,8 @@
-import * as CON from "../Constants.js";
+import { SCENES, TITLE_FONT, BUTTON_FONT } from "../Constants.js";
 
 export class MenuScene extends Phaser.Scene {
     constructor() {
-        super({key: CON.SCENES.MENUSCENE});
+        super({key: SCENES.MENUSCENE});
     }
 
     create() {
@@ -15,26 +15,26 @@ export class MenuScene extends Phaser.Scene {
 
         this.btnSoundFX = this.sound.add("buttonSound");
 
-        this.title = this.add.text(100, 100, "Main Menu", CON.TITLE_FONT);
+        this.title = this.add.text(100, 100, "Main Menu", TITLE_FONT);
 
 
-        this.startButton = this.add.text(100, 200, "Start game", CON.BUTTON_FONT);
+        this.startButton = this.add.text(100, 200, "Start game", BUTTON_FONT);
         this.startButton.setInteractive()
                         .on("pointerover", () => this.startButton.setColor("red"))
                         .on("pointerout", () => this.startButton.setColor("white"))
                         .on("pointerdown", () => {
                             this.btnSoundFX.play();
-                            this.scene.start(CON.SCENES.GAMESCENE, {levelNum: 1});
+                            this.scene.start(SCENES.GAMESCENE, {levelNum: 1});
                         });
 
 
-        this.helpButton = this.add.text(100, 230, "Help", CON.BUTTON_FONT);
+        this.helpButton = this.add.text(100, 230, "Help", BUTTON_FONT);
         this.helpButton.setInteractive()
                         .on("pointerover", () => this.helpButton.setColor("blue"))
                         .on("pointerout", () => this.helpButton.setColor("white"))
                         .on("pointerdown", () => {
                             this.btnSoundFX.play();
-                            this.scene.start(CON.SCENES.HELPSCENE);
+                            this.scene.start(SCENES.HELPSCENE);
                         });
 
         this.tweens.add({

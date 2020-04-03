@@ -1,4 +1,4 @@
-import {ColorEntity} from './ColorEntity.js'
+import { ColorEntity } from './ColorEntity.js';
 
 export class Platform extends ColorEntity {
     constructor(group, color, x, y) {
