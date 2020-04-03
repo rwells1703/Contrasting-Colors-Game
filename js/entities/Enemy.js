@@ -1,7 +1,7 @@
-import { ColorEntity } from './ColorEntity.js';
+import { DirectionalColorEntity } from './ColorEntity.js';
 import { destroyEntity } from './Utils.js';
 
-export class Enemy extends ColorEntity {
+export class Enemy extends DirectionalColorEntity {
     constructor (group, arr, color, health, x, y) {
         super();
         this.name = 'enemy';
@@ -23,28 +23,21 @@ export class Enemy extends ColorEntity {
         }
     }
 
-    update(delta) {//Called each frame. Some enemy AI could be put here.
+    //Called each frame. Some enemy AI could be put here.
+    update(delta) {
         if (this.sprite.body.touching.left) {
             this.sprite.setVelocityX(this.speed);
         } else if (this.sprite.body.touching.right) {
             this.sprite.setVelocityY(-this.speed);
         }
-
+        
         this.setAnimation();
     }
 }
-
 
 export class BouncingEnemy extends Enemy {
     constructor(group, color, health, x, y) {
         super(group, color, health, x, y);
         this.sprite.setBounce(1);
-    }
-}
-
-export class BossEnemy extends Enemy {
-    constructor(group, color, x, y) {
-        super(group, color, 100, x, y);
-        this.sprite = group.create(x, y, "boss-enemy");
     }
 }

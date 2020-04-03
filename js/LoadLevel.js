@@ -106,9 +106,6 @@ export function loadLevel(scene, levelKey) {
                 case(0x64441e):scene.player = new Player(scene, COLORS.ORANGE, positionToPx(j), positionToPx(i));break;
                 case(0x641e58):scene.player = new Player(scene, COLORS.PURPLE, positionToPx(j), positionToPx(i));break;
                 case(0x41323e):scene.player = new Player(scene, COLORS.WHITE, positionToPx(j), positionToPx(i));break;
-                
-                // Bucket.
-                /*case(0x756754):console.log("Bucket");break;*/
             }
 			j += 1;
 		}

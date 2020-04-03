@@ -1,24 +1,24 @@
 export class ColorEntity {
     changeColor(newColor) {
         this.color = newColor;
-        this.setAnimation();//Maybe not needed, as should be set in update.
+        this.setAnimation();
     }
 
     setAnimation() {
-        if (this.directional) {
-            if (this.sprite.body.velocity.x < 0) {
-                var direction = "L";
-            } else {
-                var direction = "R";
-            }
-        } else {
-            var direction = "";
-        }
-
-        this.sprite.anims.play(this.name + this.color + direction, true);
+        this.sprite.anims.play(this.name + this.color, true);
     }
 
     destroy() {
         this.sprite.destroy();
+    }
+}
+
+export class DirectionalColorEntity extends ColorEntity {
+    setAnimation() {
+        if (this.sprite.body.velocity.x < 0) {
+            this.sprite.anims.play(this.name + this.color + "L", true);
+        } else if (this.sprite.body.velocity.x > 0){
+            this.sprite.anims.play(this.name + this.color + "R", true);
+        }
     }
 }

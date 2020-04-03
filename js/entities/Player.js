@@ -1,7 +1,7 @@
-import { ColorEntity } from './ColorEntity.js';
+import { DirectionalColorEntity } from './ColorEntity.js';
 import { MAX_PLAYER_HEALTH, JUMPVEOLCITY, LOCOMOTIVE, FRICTCOEFF, AIRCOEFF, DRAGCOEFF, XDROPOFF } from "../Constants.js";
 
-export class Player extends ColorEntity {
+export class Player extends DirectionalColorEntity {
     constructor (scene, color, x, y) {
         super();
         this.name = 'player';
