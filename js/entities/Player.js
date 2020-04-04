@@ -11,6 +11,7 @@ export class Player extends DirectionalColorEntity {
         this.changeColor(color);
         this.sprite.setBounce(0.15);
         this.cursors = scene.input.keyboard.createCursorKeys();
+        this.setAnimation(true);
     }
 
     update() {
