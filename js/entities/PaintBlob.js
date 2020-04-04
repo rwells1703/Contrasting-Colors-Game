@@ -3,20 +3,21 @@ import { BLOBBOUNCECOEFF, MAXBLOBBOUNCES } from '../Constants.js';
 import { destroyEntity } from './Utils.js';
 
 export class PaintBlob extends ColorEntity {
-    constructor(arr, group, color, x, y, velocityX, velocityY) {
+    constructor(group, arr, color, x, y, velocityX, velocityY) {
         super();
+
         this.name = 'paintBlob';
         this.directional = false;
+
+        this.bounceCount = 0;
+
         this.sprite = group.create(x, y, 'paintBlob');
         this.arr = arr;
-        this.bounceCount = 0;
-        this.changeColor(color);
-        this.sprite.setBounce(BLOBBOUNCECOEFF);//Very bouncy - this may need changing.
-        this.sprite.setVelocity(velocityX, velocityY);
-    }
 
-    setAnimation() {
-        this.sprite.anims.play('paintBlob' + this.color, true);
+        this.sprite.setBounce(BLOBBOUNCECOEFF);
+        this.sprite.setVelocity(velocityX, velocityY);
+
+        this.changeColor(color);
     }
 
     addBounce() {

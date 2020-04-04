@@ -38,8 +38,8 @@ export const BLOBBOUNCECOEFF = 0.5;
 export const BLOBTIMEOUT = 500;
 export const MAXBLOBBOUNCES = 3;
 
-export const MAX_PLAYER_HEALTH = 1;
-export const MAX_ENEMY_HEALTH = 1;
+export const MAX_PLAYER_HEALTH = 10;
+export const MAX_ENEMY_HEALTH = 4;
 
 export const TITLE_FONT = {font: "50px Impact"};
 export const BUTTON_FONT = {font: "30px Impact"};

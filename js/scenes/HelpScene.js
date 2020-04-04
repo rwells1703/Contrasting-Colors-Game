@@ -6,7 +6,6 @@ export class HelpScene extends Phaser.Scene {
     }
 
     create() {
-        console.log("yes");
         this.btnSoundFX = this.sound.add("buttonSound");
 
         this.title = this.add.text(100, 100, "Help", TITLE_FONT);

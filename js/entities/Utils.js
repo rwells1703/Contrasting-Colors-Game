@@ -1,21 +1,34 @@
 import { PaintBlob } from "./PaintBlob.js"
 
-export function hurlBlob(scene, group, color, originx, originy, targetx, targety, maxSpeed) {
+export function hurlBlob(scene, color, originx, originy, targetx, targety, maxSpeed) {
     let xvec = targetx - originx;
     let yvec = targety - originy;
     let magnitude = Math.sqrt(xvec**2 + yvec**2);
-
+    
     xvec = xvec/magnitude * maxSpeed;
     yvec = yvec/magnitude * maxSpeed;
 
-    return new PaintBlob(scene, group, color, originx, originy, xvec, yvec);
+    let paintBlob = new PaintBlob(scene.blobs, scene.blobsArr, color, originx, originy, xvec, yvec);
+    scene.blobsArr.push(paintBlob);
+
+    // Add new colliders between the blob and any platforms that are not the same color as it
+    let solidPlatforms = scene.platformsArr.filter(platformObj => platformObj.color != paintBlob.color);
+    for (let platform of solidPlatforms) {
+        scene.playerPlatformColliders.push(scene.physics.add.collider(paintBlob.sprite, platform.sprite, (blobSprite, platformSprite)=>{
+            if (doesColourDoDamage(platform.color, paintBlob.color)){
+                destroyEntity(paintBlob, scene.blobsArr);
+            } else {
+                paintBlob.addBounce();
+            }
+        }));
+    }
 }
 
 export function doesColourDoDamage(c1, c2) {
     return (((c1 & c2 & 0b00111) != 0) & ((c1 & 0b11000) != (c2 & 0b11000)));
 }
 
-export function destroyEntity(entity,arr) {
+export function destroyEntity(entity, arr) {
     entity.destroy();
     arr.splice(arr.indexOf(entity), 1);
 }
@@ -26,7 +39,7 @@ export function updatePlayerPlatformColliders(scene) {
     for (let collider of scene.playerPlatformColliders) {
         scene.physics.world.removeCollider(collider);
     }
-    scene.playerPlatformColliders = [];
+    scene.scene.playerPlatformColliders = [];
 
     // Add new colliders between the player and any platforms that are not the same color as it
     let solidPlatforms = scene.platformsArr.filter(platformObj => platformObj.color != scene.player.color);

@@ -4,13 +4,18 @@ import { MAX_PLAYER_HEALTH, JUMPVEOLCITY, LOCOMOTIVE, FRICTCOEFF, AIRCOEFF, DRAG
 export class Player extends DirectionalColorEntity {
     constructor (scene, color, x, y) {
         super();
+        
         this.name = 'player';
         this.directional = true;
+
         this.health = MAX_PLAYER_HEALTH;
-        this.sprite = scene.physics.add.sprite(x, y, 'player');
-        this.changeColor(color);
-        this.sprite.setBounce(0.15);
+
         this.cursors = scene.input.keyboard.createCursorKeys();
+        this.sprite = scene.physics.add.sprite(x, y, 'player');
+
+        this.sprite.setBounce(0.15);
+
+        this.changeColor(color);
         this.setAnimation(true);
     }
 
