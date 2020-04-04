@@ -1,4 +1,4 @@
-import { COLORS, MAX_ENEMY_HEALTH, TEXTURE_SIZE }from './Constants.js';
+import { COLORS, ENEMY_MAX_HEALTH, TEXTURE_SIZE }from './Constants.js';
 import { Player } from './entities/Player.js'
 import { Enemy } from './entities/Enemy.js'
 import { Platform } from './entities/Platform.js'
@@ -81,13 +81,13 @@ export function loadLevel(scene, levelKey) {
                 case(0x000000):scene.platformsArr.push(new Platform(scene.platforms, COLORS.BLACK,  positionToPx(j), positionToPx(i)));break;
                 
                 // Enemies.
-                case(0xfd0000):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.RED, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
-                case(0x0000fd):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.BLUE, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
-                case(0xfdfd00):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.YELLOW, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
-                case(0x00fd00):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.GREEN, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
-                case(0xfd7700):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.ORANGE, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
-                case(0xfd00fd):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.PURPLE, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
-                case(0x7c6565):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.WHITE, MAX_ENEMY_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0xfd0000):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.RED, ENEMY_MAX_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0x0000fd):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.BLUE, ENEMY_MAX_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0xfdfd00):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.YELLOW, ENEMY_MAX_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0x00fd00):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.GREEN, ENEMY_MAX_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0xfd7700):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.ORANGE, ENEMY_MAX_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0xfd00fd):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.PURPLE, ENEMY_MAX_HEALTH, positionToPx(j), positionToPx(i))); break;
+                case(0x7c6565):scene.enemiesArr.push(new Enemy(scene.enemies, scene.enemiesArr, COLORS.WHITE, ENEMY_MAX_HEALTH, positionToPx(j), positionToPx(i))); break;
                 
                 // Fountains.
                 case(0x6D2F38):scene.fountainsArr.push(new Fountain(scene.fountains, COLORS.RED, positionToPx(j), positionToPx(i)));break;

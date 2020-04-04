@@ -1,4 +1,4 @@
-import { SCENES, GFS, BLOBTIMEOUT, PBLOBLAUNCH, TEXTURE_SIZE, MAX_PLAYER_HEALTH } from '../Constants.js';
+import { SCENES, GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH } from '../Constants.js';
 import { loadLevel } from "../LoadLevel.js";
 import { updatePlayerPlatformColliders, hurlBlob, doesColourDoDamage, destroyEntity } from '../entities/Utils.js'
 import { HealthBar } from '../HealthBar.js'
@@ -6,11 +6,11 @@ import { HealthBar } from '../HealthBar.js'
 export class GameScene extends Phaser.Scene {
     constructor() {
         super({
-            key: SCENES.GAMESCENE,
+            key: SCENES.GAME_SCENE,
             physics: {
                 default: "arcade",
                 arcade: {
-                    gravity: {y: GFS},
+                    gravity: {y: GRAVITY},
                 }
             },
             backgroundColor: Phaser.Display.Color.blue
@@ -51,14 +51,14 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.enemies, this.platforms);
 
         // Set blobCounter so that the player can shoot blobs
-        this.blobCounter = BLOBTIMEOUT;
+        this.blobCounter = BLOB_TIMEOUT;
         this.prevBlobCounter = 0;
 
         // Hurl a blob
         this.input.on('pointerdown', pointer=>{
-            if ((this.blobCounter - this.prevBlobCounter) > BLOBTIMEOUT) {
+            if ((this.blobCounter - this.prevBlobCounter) > BLOB_TIMEOUT) {
                 hurlBlob(this, this.player.color, this.player.sprite.x, this.player.sprite.y, 
-                    pointer.worldX, pointer.worldY, PBLOBLAUNCH)
+                    pointer.worldX, pointer.worldY, BLOB_LAUNCH_SPEED)
                 this.prevBlobCounter = this.blobCounter;
             }
         });
@@ -101,7 +101,7 @@ export class GameScene extends Phaser.Scene {
         if (!this.levelComplete) {
             // If the level is continuing
             //update health bar every frame
-            this.HealthBar.setPercent(this.player.health/MAX_PLAYER_HEALTH);
+            this.HealthBar.setPercent(this.player.health/PLAYER_MAX_HEALTH);
 
             //handles keyboard input every frame
             this.player.update(this, delta);
@@ -116,7 +116,7 @@ export class GameScene extends Phaser.Scene {
             this.events.off();
 
             // Close this level and begin the next level
-            this.scene.start(SCENES.GAMESCENE, {levelNum: this.levelNum + 1});
+            this.scene.start(SCENES.GAME_SCENE, {levelNum: this.levelNum + 1});
         }
     }
 }

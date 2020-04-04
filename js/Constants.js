@@ -1,8 +1,8 @@
 export const SCENES = {
-    LOADSCENE: "LoadScene",
-    MENUSCENE: "MenuScene",
-    HELPSCENE: "HelpScene",
-    GAMESCENE: "GameScene"
+    LOAD_SCENE: "LoadScene",
+    MENU_SCENE: "MenuScene",
+    HELP_SCENE: "HelpScene",
+    GAME_SCENE: "GameScene"
 };
 
 /* Note on COLORS. The bits are as follows: XXRBY.
@@ -23,23 +23,23 @@ export const COLORS = {
 
 export const TEXTURE_SIZE = 64;
 
-export const DRAGCOEFF = 0.8;
-export const FRICTCOEFF = 0.3;
+export const DRAG_COEFFICIENT = 0.8;
+export const FRICTION_COEFFICIENT = 0.3;
 export const LOCOMOTIVE = 450;
-export const AIRCOEFF = 0.2;
+export const AIR_COEFFICIENT = 0.2;
 
-export const XDROPOFF = 0.1;
+export const X_DROP_OFF = 0.1;
 
-export const GFS = 1500;
-export const JUMPVEOLCITY = -650;
+export const GRAVITY = 1500;
+export const JUMP_VEOLCITY = -650;
 
-export const PBLOBLAUNCH = 1000;
-export const BLOBBOUNCECOEFF = 0.5;
-export const BLOBTIMEOUT = 500;
-export const MAXBLOBBOUNCES = 3;
+export const BLOB_LAUNCH_SPEED = 1000;
+export const BLOB_BOUNCE_COEFFICIENT = 0.5;
+export const BLOB_TIMEOUT = 500;
+export const BLOB_MAX_BOUNCES = 3;
 
-export const MAX_PLAYER_HEALTH = 10;
-export const MAX_ENEMY_HEALTH = 4;
+export const PLAYER_MAX_HEALTH = 10;
+export const ENEMY_MAX_HEALTH = 4;
 
 export const TITLE_FONT = {font: "50px Impact"};
 export const BUTTON_FONT = {font: "30px Impact"};

@@ -2,7 +2,7 @@ import { SCENES, COLORS } from '../Constants.js';
 
 export class LoadScene extends Phaser.Scene {
     constructor() {
-        super({key: SCENES.LOADSCENE});
+        super({key: SCENES.LOAD_SCENE});
     }
 
     preload() {
@@ -28,8 +28,8 @@ export class LoadScene extends Phaser.Scene {
         this.loadAnimations("paintBlob", COLORS.WHITE, 1, 1, false);
         this.loadAnimations("fountain", COLORS.WHITE, 2, 1, false);
 
-        this.scene.start(SCENES.MENUSCENE);
-        //this.scene.start(SCENES.GAMESCENE);
+        this.scene.start(SCENES.MENU_SCENE);
+        //this.scene.start(SCENES.GAME_SCENE);
     }
 
     loadAnimations(spriteKey, extraColorKey, framesPerColor, frameRate, directional) {

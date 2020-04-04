@@ -2,7 +2,7 @@ import { SCENES, TITLE_FONT, BUTTON_FONT } from "../Constants.js";
 
 export class MenuScene extends Phaser.Scene {
     constructor() {
-        super({key: SCENES.MENUSCENE});
+        super({key: SCENES.MENU_SCENE});
     }
 
     create() {
@@ -24,7 +24,7 @@ export class MenuScene extends Phaser.Scene {
                         .on("pointerout", () => this.startButton.setColor("white"))
                         .on("pointerdown", () => {
                             this.btnSoundFX.play();
-                            this.scene.start(SCENES.GAMESCENE, {levelNum: 1});
+                            this.scene.start(SCENES.GAME_SCENE, {levelNum: 1});
                         });
 
 
@@ -34,7 +34,7 @@ export class MenuScene extends Phaser.Scene {
                         .on("pointerout", () => this.helpButton.setColor("white"))
                         .on("pointerdown", () => {
                             this.btnSoundFX.play();
-                            this.scene.start(SCENES.HELPSCENE);
+                            this.scene.start(SCENES.HELP_SCENE);
                         });
 
         this.tweens.add({

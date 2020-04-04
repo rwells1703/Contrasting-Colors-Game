@@ -27,7 +27,7 @@ export class HelpScene extends Phaser.Scene {
                     .on("pointerout", () => this.backBtn.setColor("white"))
                     .on("pointerdown", () => {
                         this.btnSoundFX.play();
-                        this.scene.start(SCENES.MENUSCENE);
+                        this.scene.start(SCENES.MENU_SCENE);
                     });
     }
 }
