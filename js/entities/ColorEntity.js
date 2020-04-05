@@ -1,21 +1,22 @@
 export class ColorEntity {
     changeColor(newColor) {
         this.color = newColor;
-        this.setAnimation();
+        this.updateGraphics();
     }
 
-    setAnimation() {
+    updateGraphics() {
         this.sprite.anims.play(this.name + this.color, true);
     }
 
     destroy() {
         this.sprite.destroy();
+        this.arr.splice(this.arr.indexOf(this), 1);
     }
 }
 
 export class DirectionalColorEntity extends ColorEntity {
-    setAnimation(initialAnimation) {
-        if (this.sprite.body.velocity.x > 0 || initialAnimation) {
+    updateGraphics(firstFrame) {
+        if (this.sprite.body.velocity.x > 0 || firstFrame) {
             this.sprite.anims.play(this.name + this.color + "R", true);
         } else if (this.sprite.body.velocity.x < 0){
             this.sprite.anims.play(this.name + this.color + "L", true);

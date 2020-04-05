@@ -5,6 +5,11 @@ export class MenuScene extends Phaser.Scene {
         super({key: SCENES.MENU_SCENE});
     }
 
+    preload() {
+        this.load.audio('ButtonSound', 'assets/sounds/to.wav');
+        this.load.script('WebFont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+    }
+
     create() {
         WebFont.load({
             google: {families: ['Finger Paint']},
@@ -13,10 +18,9 @@ export class MenuScene extends Phaser.Scene {
             }
         });
 
-        this.btnSoundFX = this.sound.add("buttonSound");
+        this.btnSoundFX = this.sound.add("ButtonSound");
 
         this.title = this.add.text(100, 100, "Main Menu", TITLE_FONT);
-
 
         this.startButton = this.add.text(100, 200, "Start game", BUTTON_FONT);
         this.startButton.setInteractive()

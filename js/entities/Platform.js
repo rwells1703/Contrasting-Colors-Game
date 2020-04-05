@@ -4,10 +4,10 @@ export class Platform extends ColorEntity {
     constructor(group, color, x, y) {
         super();
         
-        this.name = 'platform';
+        this.name = 'Platform';
         this.directional = false;
 
-        this.sprite = group.create(x, y, "platform");
+        this.sprite = group.create(x, y, this.name);
         
         this.changeColor(color);
     }

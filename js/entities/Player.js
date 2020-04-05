@@ -5,18 +5,18 @@ export class Player extends DirectionalColorEntity {
     constructor (scene, color, x, y) {
         super();
         
-        this.name = 'player';
+        this.name = 'Player';
         this.directional = true;
 
         this.health = PLAYER_MAX_HEALTH;
 
         this.cursors = scene.input.keyboard.createCursorKeys();
-        this.sprite = scene.physics.add.sprite(x, y, 'player');
+        this.sprite = scene.physics.add.sprite(x, y, this.name);
 
         this.sprite.setBounce(0.15);
 
         this.changeColor(color);
-        this.setAnimation(true);
+        this.updateGraphics(true);
     }
 
     update() {
@@ -63,7 +63,7 @@ export class Player extends DirectionalColorEntity {
         // Apply velocity to the sprite itself
         this.sprite.setVelocityX(xvel);
 
-        this.setAnimation();
+        this.updateGraphics();
     }
 
     damage(damValue) {

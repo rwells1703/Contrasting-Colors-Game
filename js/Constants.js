@@ -1,5 +1,4 @@
 export const SCENES = {
-    LOAD_SCENE: "LoadScene",
     MENU_SCENE: "MenuScene",
     HELP_SCENE: "HelpScene",
     GAME_SCENE: "GameScene"
@@ -43,3 +42,5 @@ export const ENEMY_MAX_HEALTH = 4;
 
 export const TITLE_FONT = {font: "50px Impact"};
 export const BUTTON_FONT = {font: "30px Impact"};
+
+export const LEVEL_BACKGROUND_COLOR = "#000E1F";

@@ -1,7 +1,8 @@
-import { SCENES, GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH } from '../Constants.js';
-import { loadLevel } from "../LoadLevel.js";
-import { updatePlayerPlatformColliders, hurlBlob, doesColourDoDamage, destroyEntity } from '../entities/Utils.js'
-import { HealthBar } from '../HealthBar.js'
+import { SCENES, GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH, LEVEL_BACKGROUND_COLOR } from '../Constants.js';
+import { loadLevelBmp, loadLevel } from "../loading/LoadLevel.js";
+import { loadImages, parseSpriteSheets } from '../loading/LoadGraphics.js';
+import { updatePlayerPlatformColliders, hurlBlob, doesColourDoDamage } from '../Utils.js'
+import { HealthBar } from '../ui/HealthBar.js'
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -12,24 +13,26 @@ export class GameScene extends Phaser.Scene {
                 arcade: {
                     gravity: {y: GRAVITY},
                 }
-            },
-            backgroundColor: Phaser.Display.Color.blue
+            }
         });
     }
 
     init(data) {
+        // Gets the level number from the init data
         this.levelNum = data.levelNum;
     }
 
     preload() {
-        // Loads a 24-bit bitmap image for the level
-        this.load.text('level' + this.levelNum, 'assets/levels/level' + this.levelNum + '.bmp');
+        loadLevelBmp(this);
+        loadImages(this);
     }
 
     create() {
+        parseSpriteSheets(this);
+
         this.levelComplete = false;
 
-        // Platform sprites that make up the design of the level
+        // Create Platform group and array
         this.platforms = this.physics.add.staticGroup();
         this.platformsArr = [];
         
@@ -37,11 +40,11 @@ export class GameScene extends Phaser.Scene {
         this.enemies = this.physics.add.group();
         this.enemiesArr = [];
 
-        //Create Fountain group and array
+        // Create Fountain group and array
         this.fountains = this.physics.add.staticGroup();
         this.fountainsArr = [];
 
-        //create Blob group and array
+        // Create Blob group and array
         this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop
         this.blobsArr = [];
 
@@ -50,48 +53,52 @@ export class GameScene extends Phaser.Scene {
         // Enemies can collide with platforms
         this.physics.add.collider(this.enemies, this.platforms);
 
-        // Set blobCounter so that the player can shoot blobs
-        this.blobCounter = BLOB_TIMEOUT;
-        this.prevBlobCounter = 0;
+        // Set blob timer so that the player cannot shoot blobs faster than a set rate
+        this.blobTimer = BLOB_TIMEOUT;
+        this.prevblobTimer = 0;
 
         // Hurl a blob
         this.input.on('pointerdown', pointer=>{
-            if ((this.blobCounter - this.prevBlobCounter) > BLOB_TIMEOUT) {
+            // If enough time has passed since the last blob was fired
+            if ((this.blobTimer - this.prevblobTimer) > BLOB_TIMEOUT) {
                 hurlBlob(this, this.player.color, this.player.sprite.x, this.player.sprite.y, 
-                    pointer.worldX, pointer.worldY, BLOB_LAUNCH_SPEED)
-                this.prevBlobCounter = this.blobCounter;
+                    pointer.worldX, pointer.worldY, BLOB_LAUNCH_SPEED);
+                
+                // Reset the timer
+                this.prevblobTimer = this.blobTimer;
             }
         });
         
-        //blob hitting enemy
+        // Blob collides with enemy
         this.physics.add.overlap(this.enemies, this.blobs, (enemySprite, blobSprite)=>{
             //finding the enemy object corresponding to the enemy sprite that got hit
             //and also finding the blob object corresponding to the blob sprite that was hurled
-            let theEnemyObj = this.enemiesArr.filter(enemyObj => enemyObj.sprite == enemySprite)[0];
-            let theBlobObj = this.blobsArr.filter(blobObj => blobObj.sprite == blobSprite)[0];
+            let enemyObj = this.enemiesArr.filter(enemyObj => enemyObj.sprite == enemySprite)[0];
+            let blobObj = this.blobsArr.filter(blobObj => blobObj.sprite == blobSprite)[0];
 
-            if (doesColourDoDamage(theEnemyObj.color, theBlobObj.color)){
-                destroyEntity(theBlobObj, this.blobsArr);
-                theEnemyObj.damage(1);
+            if (doesColourDoDamage(enemyObj.color, blobObj.color)){
+                blobObj.destroy();
+                enemyObj.damage(1);
             } else {
-                destroyEntity(theBlobObj, this.blobsArr);
+                blobObj.destroy();
             }
         });
 
-        // player walking over fountain
+        // Player walks over fountain
         this.physics.add.overlap(this.player.sprite, this.fountains, (playerSprite, fountainSprite)=>{
-            let theFountainObj = this.fountainsArr.filter(fountainObj => fountainObj.sprite == fountainSprite)[0];
-            this.player.changeColor(theFountainObj.color);
+            let fountainObj = this.fountainsArr.filter(fountainObj => fountainObj.sprite == fountainSprite)[0];
+            this.player.changeColor(fountainObj.color);
+
             updatePlayerPlatformColliders(this);
         });
 
-        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#000e1f");
+        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor(LEVEL_BACKGROUND_COLOR);
         this.cameras.main.startFollow(this.player.sprite);
 
         //can't see "outside" of the world boundaries where no game exists
         this.cameras.main.setBounds(0, 0, level_width*TEXTURE_SIZE, level_height*TEXTURE_SIZE);
 
-        this.HealthBar = new HealthBar(this);
+        this.healthBar = new HealthBar(this);
 
         this.playerPlatformColliders = [];
         updatePlayerPlatformColliders(this);
@@ -101,15 +108,16 @@ export class GameScene extends Phaser.Scene {
         if (!this.levelComplete) {
             // If the level is continuing
             //update health bar every frame
-            this.HealthBar.setPercent(this.player.health/PLAYER_MAX_HEALTH);
+            this.healthBar.setPercent(this.player.health/PLAYER_MAX_HEALTH);
 
-            //handles keyboard input every frame
-            this.player.update(this, delta);
+            // Handles keyboard input every frame
+            this.player.update();
 
             for (let enemy of this.enemiesArr) {
-                enemy.update(delta);
+                enemy.update();
             }
-            this.blobCounter = delta;
+
+            this.blobTimer = delta;
         } else {
             // If the level has been completed
             this.registry.destroy();

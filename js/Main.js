@@ -1,4 +1,3 @@
-import { LoadScene } from './scenes/LoadScene.js';
 import { MenuScene } from './scenes/MenuScene.js';
 import { HelpScene } from './scenes/HelpScene.js';
 import { GameScene } from './scenes/GameScene.js';
@@ -11,7 +10,7 @@ let config = {
     },
     width: 1024, // 64 * 16
     height: 576, // 64 * 9
-    scene: [LoadScene, MenuScene, HelpScene, GameScene]
+    scene: [MenuScene, HelpScene, GameScene]
 }
 
 let game = new Phaser.Game(config);
