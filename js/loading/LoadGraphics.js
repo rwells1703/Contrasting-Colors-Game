@@ -3,6 +3,14 @@ import { COLORS } from "../Constants.js";
 export function loadImages(scene) {
     scene.load.image('HealthBar', 'assets/sprites/ui/health_bar/health_bar.png');
     scene.load.image('HealthBarOutline', 'assets/sprites/ui/health_bar/health_bar_outline.png');
+    
+    scene.load.image('PaintPalette', 'assets/sprites/ui/paint_palette/paint_palette.png');
+    scene.load.image('PaintPaletteBlue', 'assets/sprites/ui/paint_palette/blue_paint.png');
+    scene.load.image('PaintPaletteGreen', 'assets/sprites/ui/paint_palette/green_paint.png');
+    scene.load.image('PaintPaletteOrange', 'assets/sprites/ui/paint_palette/orange_paint.png');
+    scene.load.image('PaintPalettePurple', 'assets/sprites/ui/paint_palette/purple_paint.png');
+    scene.load.image('PaintPaletteRed', 'assets/sprites/ui/paint_palette/red_paint.png');
+    scene.load.image('PaintPaletteYellow', 'assets/sprites/ui/paint_palette/yellow_paint.png');
 
     scene.load.spritesheet('Enemy', 'assets/sprites/entities/enemy.png', {frameWidth: 32, frameHeight: 64});
     scene.load.spritesheet('Fountain', 'assets/sprites/entities/fountain.png', {frameWidth: 64, frameHeight: 64});

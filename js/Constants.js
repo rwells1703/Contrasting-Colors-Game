@@ -21,6 +21,8 @@ export const COLORS = {
 };
 
 export const TEXTURE_SIZE = 64;
+export const WINDOW_WIDTH = TEXTURE_SIZE * 16;
+export const WINDOW_HEIGHT = TEXTURE_SIZE * 9;
 
 export const DRAG_COEFFICIENT = 0.8;
 export const FRICTION_COEFFICIENT = 0.3;

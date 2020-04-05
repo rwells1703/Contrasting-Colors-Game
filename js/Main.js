@@ -1,3 +1,4 @@
+import { WINDOW_WIDTH, WINDOW_HEIGHT } from './Constants.js'
 import { MenuScene } from './scenes/MenuScene.js';
 import { HelpScene } from './scenes/HelpScene.js';
 import { GameScene } from './scenes/GameScene.js';
@@ -8,8 +9,8 @@ let config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    width: 1024, // 64 * 16
-    height: 576, // 64 * 9
+    width: WINDOW_WIDTH,
+    height: WINDOW_HEIGHT,
     scene: [MenuScene, HelpScene, GameScene]
 }
 

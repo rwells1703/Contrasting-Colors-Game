@@ -3,6 +3,7 @@ import { loadLevelBmp, loadLevel } from "../loading/LoadLevel.js";
 import { loadImages, parseSpriteSheets } from '../loading/LoadGraphics.js';
 import { updatePlayerPlatformColliders, hurlBlob, doesColourDoDamage } from '../Utils.js'
 import { HealthBar } from '../ui/HealthBar.js'
+import { PaintPalette } from '../ui/PaintPalette.js';
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -87,9 +88,12 @@ export class GameScene extends Phaser.Scene {
         // Player walks over fountain
         this.physics.add.overlap(this.player.sprite, this.fountains, (playerSprite, fountainSprite)=>{
             let fountainObj = this.fountainsArr.filter(fountainObj => fountainObj.sprite == fountainSprite)[0];
-            this.player.changeColor(fountainObj.color);
 
-            updatePlayerPlatformColliders(this);
+            if (this.player.color != fountainObj.color) {
+                this.player.changeColor(fountainObj.color);
+                this.paintPalette.updateColors(fountainObj.color);
+                updatePlayerPlatformColliders(this);
+            }
         });
 
         this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor(LEVEL_BACKGROUND_COLOR);
@@ -99,6 +103,9 @@ export class GameScene extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, level_width*TEXTURE_SIZE, level_height*TEXTURE_SIZE);
 
         this.healthBar = new HealthBar(this);
+                
+        this.paintPalette = new PaintPalette(this);
+        this.paintPalette.updateColors(this.player.color);
 
         this.playerPlatformColliders = [];
         updatePlayerPlatformColliders(this);
