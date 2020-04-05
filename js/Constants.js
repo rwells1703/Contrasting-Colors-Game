@@ -21,6 +21,7 @@ export const COLORS = {
 };
 
 export const TEXTURE_SIZE = 64;
+
 export const WINDOW_WIDTH = TEXTURE_SIZE * 16;
 export const WINDOW_HEIGHT = TEXTURE_SIZE * 9;
 
@@ -46,3 +47,5 @@ export const TITLE_FONT = {font: "50px Impact"};
 export const BUTTON_FONT = {font: "30px Impact"};
 
 export const LEVEL_BACKGROUND_COLOR = "#000E1F";
+
+export const SKIP_MENU = true;

@@ -1,4 +1,4 @@
-import { SCENES, TITLE_FONT, BUTTON_FONT } from "../Constants.js";
+import { SCENES, TITLE_FONT, BUTTON_FONT, SKIP_MENU } from "../Constants.js";
 
 export class MenuScene extends Phaser.Scene {
     constructor() {
@@ -6,6 +6,10 @@ export class MenuScene extends Phaser.Scene {
     }
 
     preload() {
+        if (SKIP_MENU) {
+            this.scene.start(SCENES.GAME_SCENE, {levelNum: 1});
+        }
+        
         this.load.audio('ButtonSound', 'assets/sounds/to.wav');
         this.load.script('WebFont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
     }

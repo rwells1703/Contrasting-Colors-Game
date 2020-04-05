@@ -1,6 +1,8 @@
 import { COLORS } from "../Constants.js";
 
 export function loadImages(scene) {
+    scene.load.image('Background', 'assets/sprites/background.png')
+    
     scene.load.image('HealthBar', 'assets/sprites/ui/health_bar/health_bar.png');
     scene.load.image('HealthBarOutline', 'assets/sprites/ui/health_bar/health_bar_outline.png');
     

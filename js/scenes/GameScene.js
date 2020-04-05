@@ -1,4 +1,4 @@
-import { SCENES, GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH, LEVEL_BACKGROUND_COLOR } from '../Constants.js';
+import { SCENES, GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH } from '../Constants.js';
 import { loadLevelBmp, loadLevel } from "../loading/LoadLevel.js";
 import { loadImages, parseSpriteSheets } from '../loading/LoadGraphics.js';
 import { updatePlayerPlatformColliders, hurlBlob, doesColourDoDamage } from '../Utils.js'
@@ -96,7 +96,7 @@ export class GameScene extends Phaser.Scene {
             }
         });
 
-        this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor(LEVEL_BACKGROUND_COLOR);
+        //this.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor(LEVEL_BACKGROUND_COLOR);
         this.cameras.main.startFollow(this.player.sprite);
 
         //can't see "outside" of the world boundaries where no game exists

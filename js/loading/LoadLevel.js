@@ -67,6 +67,8 @@ export function loadLevel(scene, levelKey) {
     let levelString = scene.cache.text.get(levelKey);
     let level = readLevelData(levelString);
 
+    scene.add.tileSprite(0, 0, 2*level.width*TEXTURE_SIZE, 2*level.height*TEXTURE_SIZE, 'Background');
+
 	let i = 0;
 	while (i < level.height) {
 		let j = 0;
