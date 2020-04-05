@@ -46,6 +46,4 @@ export const ENEMY_MAX_HEALTH = 4;
 export const TITLE_FONT = {font: "50px Impact"};
 export const BUTTON_FONT = {font: "30px Impact"};
 
-export const LEVEL_BACKGROUND_COLOR = "#000E1F";
-
-export const SKIP_MENU = true;
+export const DEBUG = true;

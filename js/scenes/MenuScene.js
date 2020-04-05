@@ -1,4 +1,4 @@
-import { SCENES, TITLE_FONT, BUTTON_FONT, SKIP_MENU } from "../Constants.js";
+import { SCENES, TITLE_FONT, BUTTON_FONT, DEBUG } from "../Constants.js";
 
 export class MenuScene extends Phaser.Scene {
     constructor() {
@@ -6,7 +6,7 @@ export class MenuScene extends Phaser.Scene {
     }
 
     preload() {
-        if (SKIP_MENU) {
+        if (DEBUG) {
             this.scene.start(SCENES.GAME_SCENE, {levelNum: 1});
         }
         
