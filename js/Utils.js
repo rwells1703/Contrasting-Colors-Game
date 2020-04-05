@@ -1,4 +1,4 @@
-import { Blob } from "./entities/Blob.js"
+import { Blob } from './entities/Blob.js'
 
 export function hurlBlob(scene, color, originx, originy, targetx, targety, maxSpeed) {
     let xvec = targetx - originx;

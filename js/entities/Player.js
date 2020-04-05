@@ -1,5 +1,5 @@
 import { DirectionalColorEntity } from './ColorEntity.js';
-import { PLAYER_MAX_HEALTH, JUMP_VEOLCITY, LOCOMOTIVE, FRICTION_COEFFICIENT, AIR_COEFFICIENT, DRAG_COEFFICIENT, X_DROP_OFF } from "../Constants.js";
+import { PLAYER_MAX_HEALTH, JUMP_VEOLCITY, LOCOMOTIVE, FRICTION_COEFFICIENT, AIR_COEFFICIENT, DRAG_COEFFICIENT, X_DROP_OFF } from '../Constants.js';
 
 export class Player extends DirectionalColorEntity {
     constructor (scene, color, x, y) {

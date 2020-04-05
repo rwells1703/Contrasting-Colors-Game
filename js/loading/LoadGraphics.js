@@ -1,4 +1,4 @@
-import { COLORS } from "../Constants.js";
+import { COLORS } from '../Constants.js';
 
 export function loadImages(scene) {
     scene.load.image('Background', 'assets/sprites/background.png')
@@ -35,9 +35,9 @@ function parseSpriteSheet(scene, spritesheetKey, extraColor, framesPerColor, fra
 
     for (let i = 0; i < colors.length; i++) {
         if (directional) {
-            var animationKeyExtensions = ["R", "L"];
+            var animationKeyExtensions = ['R', 'L'];
         } else {
-            var animationKeyExtensions = [""];
+            var animationKeyExtensions = [''];
         }
 
         for (let animationKeyExtension of animationKeyExtensions) {    

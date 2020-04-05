@@ -1,5 +1,5 @@
 import { SCENES, GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH, DEBUG } from '../Constants.js';
-import { loadLevelBmp, loadLevel } from "../loading/LoadLevel.js";
+import { loadLevelBmp, loadLevel } from '../loading/LoadLevel.js';
 import { loadImages, parseSpriteSheets } from '../loading/LoadGraphics.js';
 import { updatePlayerPlatformColliders, hurlBlob, doesColourDoDamage } from '../Utils.js'
 import { HealthBar } from '../ui/HealthBar.js'
@@ -10,7 +10,7 @@ export class GameScene extends Phaser.Scene {
         super({
             key: SCENES.GAME_SCENE,
             physics: {
-                default: "arcade",
+                default: 'arcade',
                 arcade: {
                     gravity: {y: GRAVITY},
                 }
@@ -98,7 +98,7 @@ export class GameScene extends Phaser.Scene {
 
         this.cameras.main.startFollow(this.player.sprite);
 
-        //can't see "outside" of the world boundaries where no game exists
+        // Can't see "outside" of the world boundaries where no game exists
         this.cameras.main.setBounds(0, 0, level_width*TEXTURE_SIZE, level_height*TEXTURE_SIZE);
 
         this.healthBar = new HealthBar(this);

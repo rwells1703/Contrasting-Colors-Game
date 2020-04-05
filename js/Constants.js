@@ -1,7 +1,7 @@
 export const SCENES = {
-    MENU_SCENE: "MenuScene",
-    HELP_SCENE: "HelpScene",
-    GAME_SCENE: "GameScene"
+    MENU_SCENE: 'MenuScene',
+    HELP_SCENE: 'HelpScene',
+    GAME_SCENE: 'GameScene'
 };
 
 /* Note on COLORS. The bits are as follows: XXRBY.
@@ -43,7 +43,7 @@ export const BLOB_MAX_BOUNCES = 3;
 export const PLAYER_MAX_HEALTH = 10;
 export const ENEMY_MAX_HEALTH = 4;
 
-export const TITLE_FONT = {font: "50px Impact"};
-export const BUTTON_FONT = {font: "30px Impact"};
+export const TITLE_FONT = {font: '50px Impact'};
+export const BUTTON_FONT = {font: '30px Impact'};
 
-export const DEBUG = true;
+export const DEBUG = false;
