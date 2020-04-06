@@ -1,4 +1,4 @@
-# Contrasting-Colors-Game
+# Contrasting Colors Game
 
 Our entry for Geta Game Jam 9 (August 2019) <br>
 https://itch.io/jam/geta-game-jam-9
