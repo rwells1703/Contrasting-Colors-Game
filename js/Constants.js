@@ -1,7 +1,8 @@
 export const SCENES = {
     MENU_SCENE: 'MenuScene',
     HELP_SCENE: 'HelpScene',
-    GAME_SCENE: 'GameScene'
+    GAME_SCENE: 'GameScene',
+    WIN_SCENE: 'WinScene'
 };
 
 /* Note on COLORS. The bits are as follows: XXRBY.
@@ -22,7 +23,7 @@ export const COLORS = {
 
 export const TEXTURE_SIZE = 64;
 
-export const WINDOW_WIDTH = TEXTURE_SIZE * 16;
+export const WINDOW_WIDTH = TEXTURE_SIZE * 18;
 export const WINDOW_HEIGHT = TEXTURE_SIZE * 9;
 
 export const DRAG_COEFFICIENT = 0.8;
@@ -43,7 +44,5 @@ export const BLOB_MAX_BOUNCES = 3;
 export const PLAYER_MAX_HEALTH = 10;
 export const ENEMY_MAX_HEALTH = 4;
 
-export const TITLE_FONT = {font: '50px Impact'};
-export const BUTTON_FONT = {font: '30px Impact'};
-
+export const FINAL_LEVEL = 1;
 export const DEBUG = false;

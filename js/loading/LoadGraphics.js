@@ -13,6 +13,8 @@ export function loadImages(scene) {
     scene.load.image('PaintPalettePurple', 'assets/sprites/ui/paint_palette/purple_paint.png');
     scene.load.image('PaintPaletteRed', 'assets/sprites/ui/paint_palette/red_paint.png');
     scene.load.image('PaintPaletteYellow', 'assets/sprites/ui/paint_palette/yellow_paint.png');
+    
+    scene.load.image('Artwork', 'assets/sprites/entities/artwork.png');
 
     scene.load.spritesheet('Enemy', 'assets/sprites/entities/enemy.png', {frameWidth: 32, frameHeight: 64});
     scene.load.spritesheet('Fountain', 'assets/sprites/entities/fountain.png', {frameWidth: 64, frameHeight: 64});

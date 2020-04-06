@@ -42,3 +42,7 @@ export function updatePlayerPlatformColliders(scene) {
         scene.playerPlatformColliders.push(scene.physics.add.collider(scene.player.sprite, platform.sprite));
     }
 }
+
+export function getRandomColor() {
+    return 'hsl(' + Math.floor(Math.random()*360) + ', 100%, 50%)';
+}

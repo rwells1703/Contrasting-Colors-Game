@@ -1,4 +1,10 @@
-export class ColorEntity {
+import { Entity } from './Entity.js';
+
+export class ColorEntity extends Entity {
+    constructor() {
+        super();
+    }
+    
     changeColor(newColor) {
         this.color = newColor;
         this.updateGraphics();
@@ -6,11 +12,6 @@ export class ColorEntity {
 
     updateGraphics() {
         this.sprite.anims.play(this.name + this.color, true);
-    }
-
-    destroy() {
-        this.sprite.destroy();
-        this.arr.splice(this.arr.indexOf(this), 1);
     }
 }
 

@@ -1,6 +1,6 @@
-import { SCENES, GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH, DEBUG } from '../Constants.js';
+import { SCENES, GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH, FINAL_LEVEL, DEBUG } from '../Constants.js';
 import { loadLevelBmp, loadLevel } from '../loading/LoadLevel.js';
-import { loadImages, parseSpriteSheets } from '../loading/LoadGraphics.js';
+import { parseSpriteSheets } from '../loading/LoadGraphics.js';
 import { updatePlayerPlatformColliders, hurlBlob, doesColourDoDamage } from '../Utils.js'
 import { HealthBar } from '../ui/HealthBar.js'
 import { PaintPalette } from '../ui/PaintPalette.js';
@@ -25,7 +25,6 @@ export class GameScene extends Phaser.Scene {
 
     preload() {
         loadLevelBmp(this);
-        loadImages(this);
     }
 
     create() {
@@ -48,6 +47,10 @@ export class GameScene extends Phaser.Scene {
         // Create Blob group and array
         this.blobs = this.physics.add.group();//Add blobs using blobs.push, remove using blobs.pop
         this.blobsArr = [];
+
+        // Create Artworks group and array
+        this.artworks = this.physics.add.staticGroup();
+        this.artworksArr = [];
 
         let [level_width, level_height] = loadLevel(this, 'level' + this.levelNum);
 
@@ -96,6 +99,18 @@ export class GameScene extends Phaser.Scene {
             }
         });
 
+        // Player walks over artwork
+        this.physics.add.overlap(this.player.sprite, this.artworks, (playerSprite, artworkSprite)=>{
+            let artworkObj = this.artworksArr.filter(artworkObj => artworkObj.sprite == artworkSprite)[0];
+
+            artworkObj.destroy();
+
+            // If the player has collected all the artworks
+            if (this.artworksArr.length == 0) {
+                this.levelComplete = true;
+            }
+        });
+
         this.cameras.main.startFollow(this.player.sprite);
 
         // Can't see "outside" of the world boundaries where no game exists
@@ -130,8 +145,12 @@ export class GameScene extends Phaser.Scene {
             this.events.off();
 
             if (!DEBUG) {
-                // Close this level and begin the next level
-                this.scene.start(SCENES.GAME_SCENE, {levelNum: this.levelNum + 1});
+                if (this.levelNum == FINAL_LEVEL) {
+                    this.scene.start(SCENES.WIN_SCENE);
+                } else {
+                    // Close this level and begin the next level
+                    this.scene.start(SCENES.GAME_SCENE, {levelNum: this.levelNum + 1});
+                }
             }
         }
     }
