@@ -1,4 +1,4 @@
-import { SCENES, DEBUG } from '../Constants.js';
+import { SCENES, WINDOW_WIDTH, WINDOW_HEIGHT, DEBUG } from '../Constants.js';
 import { getRandomColor } from '../Utils.js';
 import { loadImages } from '../loading/LoadGraphics.js';
 
@@ -18,7 +18,9 @@ export class MenuScene extends Phaser.Scene {
         if (DEBUG) {
             this.scene.start(SCENES.GAME_SCENE, {levelNum: 'Debug'});
         }
-        
+                       
+        this.add.tileSprite(0, 0, 2*WINDOW_WIDTH, 2*WINDOW_HEIGHT, 'Background');
+
         WebFont.load({
             google: {families: ['Finger Paint']},
             active: () => {

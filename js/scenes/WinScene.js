@@ -1,4 +1,4 @@
-import { SCENES } from '../Constants.js';
+import { SCENES, WINDOW_WIDTH, WINDOW_HEIGHT } from '../Constants.js';
 import { getRandomColor } from '../Utils.js';
 
 export class WinScene extends Phaser.Scene {
@@ -7,6 +7,8 @@ export class WinScene extends Phaser.Scene {
     }
 
     create() {
+        this.add.tileSprite(0, 0, 2*WINDOW_WIDTH, 2*WINDOW_HEIGHT, 'Background');
+        
         WebFont.load({
             google: {families: ['Finger Paint']},
             active: () => {
