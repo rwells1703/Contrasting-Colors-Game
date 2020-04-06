@@ -1,10 +1,10 @@
-import { SCENES, WINDOW_WIDTH, WINDOW_HEIGHT, DEBUG } from '../Constants.js';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, DEBUG } from '../Constants.js';
 import { getRandomColor } from '../Utils.js';
 import { loadImages } from '../loading/LoadGraphics.js';
 
 export class MenuScene extends Phaser.Scene {
     constructor() {
-        super({key: SCENES.MENU_SCENE});
+        super({key: 'MenuScene'});
     }
 
     preload() {
@@ -16,7 +16,7 @@ export class MenuScene extends Phaser.Scene {
 
     create() {
         if (DEBUG) {
-            this.scene.start(SCENES.GAME_SCENE, {levelNum: 'Debug'});
+            this.scene.start('GameScene', {levelNum: 'Debug'});
         }
                        
         this.add.tileSprite(0, 0, 2*WINDOW_WIDTH, 2*WINDOW_HEIGHT, 'Background');
@@ -50,7 +50,7 @@ export class MenuScene extends Phaser.Scene {
                                 .on('pointerout', () => this.startButton.setColor(getRandomColor()))
                                 .on('pointerdown', () => {
                                     this.btnSoundFX.play();
-                                    this.scene.start(SCENES.GAME_SCENE, {levelNum: 1});
+                                    this.scene.start('GameScene', {levelNum: 1});
                                 });
         
         
@@ -60,7 +60,7 @@ export class MenuScene extends Phaser.Scene {
                                 .on('pointerout', () => this.helpButton.setColor(getRandomColor()))
                                 .on('pointerdown', () => {
                                     this.btnSoundFX.play();
-                                    this.scene.start(SCENES.HELP_SCENE);
+                                    this.scene.start('HelpScene');
                                 });
             }
         });

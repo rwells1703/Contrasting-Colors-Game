@@ -1,9 +1,9 @@
-import { SCENES, WINDOW_WIDTH, WINDOW_HEIGHT } from '../Constants.js';
+import { WINDOW_WIDTH, WINDOW_HEIGHT } from '../Constants.js';
 import { getRandomColor } from '../Utils.js';
 
 export class WinScene extends Phaser.Scene {
     constructor() {
-        super({key: SCENES.WIN_SCENE});
+        super({key: 'WinScene'});
     }
 
     create() {
@@ -38,7 +38,7 @@ export class WinScene extends Phaser.Scene {
                                 .on('pointerout', () => this.backButton.setColor(getRandomColor()))
                                 .on('pointerdown', () => {
                                     this.btnSoundFX.play();
-                                    this.scene.start(SCENES.MENU_SCENE);
+                                    this.scene.start('MenuScene');
                                 });
             }
         });

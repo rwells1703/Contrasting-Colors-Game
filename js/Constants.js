@@ -1,10 +1,3 @@
-export const SCENES = {
-    MENU_SCENE: 'MenuScene',
-    HELP_SCENE: 'HelpScene',
-    GAME_SCENE: 'GameScene',
-    WIN_SCENE: 'WinScene'
-};
-
 /* Note on COLORS. The bits are as follows: XXRBY.
  * R is to specify whether they are in the red family (so red, green or white.) Similar for B and Y.
  * XX is to specify "class" - whether it is a primary, secondary, etc. color. 00 is for primary, 01 is for secondary.

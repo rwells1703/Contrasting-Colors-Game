@@ -1,4 +1,4 @@
-import { SCENES, GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH, FINAL_LEVEL, DEBUG } from '../Constants.js';
+import { GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH, FINAL_LEVEL, DEBUG } from '../Constants.js';
 import { loadLevelBmp, loadLevel } from '../loading/LoadLevel.js';
 import { parseSpriteSheets } from '../loading/LoadGraphics.js';
 import { updatePlayerPlatformColliders, hurlBlob, doesColourDoDamage } from '../Utils.js'
@@ -8,7 +8,7 @@ import { PaintPalette } from '../ui/PaintPalette.js';
 export class GameScene extends Phaser.Scene {
     constructor() {
         super({
-            key: SCENES.GAME_SCENE,
+            key: 'GameScene',
             physics: {
                 default: 'arcade',
                 arcade: {
@@ -146,10 +146,10 @@ export class GameScene extends Phaser.Scene {
 
             if (!DEBUG) {
                 if (this.levelNum == FINAL_LEVEL) {
-                    this.scene.start(SCENES.WIN_SCENE);
+                    this.scene.start('WinScene');
                 } else {
                     // Close this level and begin the next level
-                    this.scene.start(SCENES.GAME_SCENE, {levelNum: this.levelNum + 1});
+                    this.scene.start('GameScene', {levelNum: this.levelNum + 1});
                 }
             }
         }
