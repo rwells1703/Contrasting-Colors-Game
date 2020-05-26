@@ -16,7 +16,7 @@ export class MenuScene extends Phaser.Scene {
 
     create() {
         if (DEBUG) {
-            this.scene.start('GameScene', {levelNum: 'Debug'});
+            this.scene.start('GameScene', {levelNum: 'DebugNew'});
         }
                        
         this.add.tileSprite(0, 0, 2*WINDOW_WIDTH, 2*WINDOW_HEIGHT, 'Background');

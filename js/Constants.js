@@ -31,10 +31,11 @@ export const JUMP_VEOLCITY = -650;
 
 export const BLOB_LAUNCH_SPEED = 1000;
 export const BLOB_BOUNCE_COEFFICIENT = 0.5;
-export const BLOB_TIMEOUT = 500;
+export const PLAYER_BLOB_TIMEOUT = 500;
+export const ENEMY_BLOB_TIMEOUT = 1500;
 export const BLOB_MAX_BOUNCES = 3;
 
-export const PLAYER_MAX_HEALTH = 10;
+export const PLAYER_MAX_HEALTH = 15;
 export const ENEMY_MAX_HEALTH = 4;
 
 export const FINAL_LEVEL = 1;

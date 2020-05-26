@@ -1,7 +1,7 @@
-import { GRAVITY, BLOB_TIMEOUT, BLOB_LAUNCH_SPEED, TEXTURE_SIZE, PLAYER_MAX_HEALTH, FINAL_LEVEL, DEBUG } from '../Constants.js';
+import { GRAVITY, TEXTURE_SIZE, PLAYER_MAX_HEALTH, FINAL_LEVEL, DEBUG } from '../Constants.js';
 import { loadLevelBmp, loadLevel } from '../loading/LoadLevel.js';
 import { parseSpriteSheets } from '../loading/LoadGraphics.js';
-import { updatePlayerPlatformColliders, hurlBlob, doesColourDoDamage } from '../Utils.js'
+import { updatePlayerPlatformColliders, doesColourDoDamage } from '../Utils.js'
 import { HealthBar } from '../ui/HealthBar.js'
 import { PaintPalette } from '../ui/PaintPalette.js';
 
@@ -57,34 +57,25 @@ export class GameScene extends Phaser.Scene {
         // Enemies can collide with platforms
         this.physics.add.collider(this.enemies, this.platforms);
 
-        // Set blob timer so that the player cannot shoot blobs faster than a set rate
-        this.blobTimer = BLOB_TIMEOUT;
-        this.prevblobTimer = 0;
-
-        // Hurl a blob
-        this.input.on('pointerdown', pointer=>{
-            // If enough time has passed since the last blob was fired
-            if ((this.blobTimer - this.prevblobTimer) > BLOB_TIMEOUT) {
-                hurlBlob(this, this.player.color, this.player.sprite.x, this.player.sprite.y, 
-                    pointer.worldX, pointer.worldY, BLOB_LAUNCH_SPEED);
-                
-                // Reset the timer
-                this.prevblobTimer = this.blobTimer;
-            }
-        });
-        
         // Blob collides with enemy
         this.physics.add.overlap(this.enemies, this.blobs, (enemySprite, blobSprite)=>{
-            //finding the enemy object corresponding to the enemy sprite that got hit
-            //and also finding the blob object corresponding to the blob sprite that was hurled
+            // Finding the enemy object corresponding to the enemy sprite that got hit
+            // and also finding the blob object corresponding to the blob sprite that was hurled
             let enemyObj = this.enemiesArr.filter(enemyObj => enemyObj.sprite == enemySprite)[0];
             let blobObj = this.blobsArr.filter(blobObj => blobObj.sprite == blobSprite)[0];
-
-            if (doesColourDoDamage(enemyObj.color, blobObj.color)){
+            if (doesColourDoDamage(enemyObj.color, blobObj.color) && blobObj.originEntity.name == 'Player'){
                 blobObj.destroy();
                 enemyObj.damage(1);
-            } else {
+            }
+        });
+
+        // Blob collides with player
+        this.physics.add.overlap(this.player.sprite, this.blobs, (playerSprite, blobSprite)=>{
+            // Find the blob object corresponding to the blob sprite that was hurled
+            let blobObj = this.blobsArr.filter(blobObj => blobObj.sprite == blobSprite)[0];
+            if (doesColourDoDamage(this.player.color, blobObj.color) && blobObj.originEntity.name != 'Player'){
                 blobObj.destroy();
+                this.player.damage(1);
             }
         });
 
@@ -117,12 +108,14 @@ export class GameScene extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, level_width*TEXTURE_SIZE, level_height*TEXTURE_SIZE);
 
         this.healthBar = new HealthBar(this);
-                
+
         this.paintPalette = new PaintPalette(this);
         this.paintPalette.updateColors(this.player.color);
 
         this.playerPlatformColliders = [];
         updatePlayerPlatformColliders(this);
+
+        this.blobPlatformColliders = [];
     }
 
     update(delta) {
@@ -132,13 +125,11 @@ export class GameScene extends Phaser.Scene {
             this.healthBar.setPercent(this.player.health/PLAYER_MAX_HEALTH);
 
             // Handles keyboard input every frame
-            this.player.update();
+            this.player.update(delta);
 
             for (let enemy of this.enemiesArr) {
-                enemy.update();
+                enemy.update(this, delta);
             }
-
-            this.blobTimer = delta;
         } else {
             // If the level has been completed
             this.registry.destroy();

@@ -2,21 +2,22 @@ import { ColorEntity } from './ColorEntity.js';
 import { BLOB_BOUNCE_COEFFICIENT, BLOB_MAX_BOUNCES } from '../Constants.js';
 
 export class Blob extends ColorEntity {
-    constructor(group, arr, color, x, y, velocityX, velocityY) {
+    constructor(group, arr, originEntity, velocityX, velocityY) {
         super();
 
         this.name = 'Blob';
         this.directional = false;
 
         this.bounceCount = 0;
-
-        this.sprite = group.create(x, y, this.name);
+        this.originEntity = originEntity;
+        
+        this.sprite = group.create(originEntity.sprite.x, originEntity.sprite.y, this.name);
         this.arr = arr;
 
         this.sprite.setBounce(BLOB_BOUNCE_COEFFICIENT);
         this.sprite.setVelocity(velocityX, velocityY);
 
-        this.changeColor(color);
+        this.changeColor(originEntity.color);
     }
 
     addBounce() {

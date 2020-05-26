@@ -1,5 +1,6 @@
 import { DirectionalColorEntity } from './ColorEntity.js';
-import { PLAYER_MAX_HEALTH, JUMP_VEOLCITY, LOCOMOTIVE, FRICTION_COEFFICIENT, AIR_COEFFICIENT, DRAG_COEFFICIENT, X_DROP_OFF } from '../Constants.js';
+import { PLAYER_MAX_HEALTH, JUMP_VEOLCITY, LOCOMOTIVE, FRICTION_COEFFICIENT, AIR_COEFFICIENT, DRAG_COEFFICIENT, X_DROP_OFF, PLAYER_BLOB_TIMEOUT, BLOB_LAUNCH_SPEED } from '../Constants.js';
+import { hurlBlob } from '../Utils.js';
 
 export class Player extends DirectionalColorEntity {
     constructor (scene, color, x, y) {
@@ -15,11 +16,25 @@ export class Player extends DirectionalColorEntity {
 
         this.sprite.setBounce(0.15);
 
+        this.blobTimer = 0;
+        this.prevBlobTimer = 0;
+
+        // Hurl a blob
+        scene.input.on('pointerdown', pointer => {
+            // If enough time has passed since the last blob was fired
+            if ((this.blobTimer - this.prevBlobTimer) > PLAYER_BLOB_TIMEOUT) {
+                hurlBlob(scene, this, pointer.worldX, pointer.worldY, BLOB_LAUNCH_SPEED + this.sprite.body.velocity.x);
+                
+                // Reset the timer
+                this.prevBlobTimer = this.blobTimer;
+            }
+        });
+
         this.changeColor(color);
         this.updateGraphics(true);
     }
 
-    update() {
+    update(delta) {
         let direction;
         let velta;
 
@@ -33,7 +48,7 @@ export class Player extends DirectionalColorEntity {
         }
 
         // Applies jumping velocity if on the floor
-        if (this.cursors.up.isDown && this.sprite.body.touching.down) {
+        if (this.cursors.up.isDown && this.sprite.body.blocked.down) {
             this.sprite.setVelocityY(JUMP_VEOLCITY);
         }
 
@@ -62,6 +77,8 @@ export class Player extends DirectionalColorEntity {
 
         // Apply velocity to the sprite itself
         this.sprite.setVelocityX(xvel);
+
+        this.blobTimer = delta;
 
         this.updateGraphics();
     }

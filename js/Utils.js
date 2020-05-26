@@ -1,20 +1,20 @@
 import { Blob } from './entities/Blob.js'
 
-export function hurlBlob(scene, color, originx, originy, targetx, targety, maxSpeed) {
-    let xvec = targetx - originx;
-    let yvec = targety - originy;
+export function hurlBlob(scene, originEntity, targetx, targety, maxSpeed) {
+    let xvec = targetx - originEntity.sprite.x;
+    let yvec = targety - originEntity.sprite.y;
     let magnitude = Math.sqrt(xvec**2 + yvec**2);
     
     xvec = xvec/magnitude * maxSpeed;
     yvec = yvec/magnitude * maxSpeed;
 
-    let blob = new Blob(scene.blobs, scene.blobsArr, color, originx, originy, xvec, yvec);
+    let blob = new Blob(scene.blobs, scene.blobsArr, originEntity, xvec, yvec);
     scene.blobsArr.push(blob);
 
     // Add new colliders between the blob and any platforms that are not the same color as it
     let solidPlatforms = scene.platformsArr.filter(platformObj => platformObj.color != blob.color);
     for (let platform of solidPlatforms) {
-        scene.playerPlatformColliders.push(scene.physics.add.collider(blob.sprite, platform.sprite, (blobSprite, platformSprite)=>{
+        scene.blobPlatformColliders.push(scene.physics.add.collider(blob.sprite, platform.sprite, (blobSprite, platformSprite)=>{
             if (doesColourDoDamage(platform.color, blob.color)){
                 blob.destroy();
             } else {

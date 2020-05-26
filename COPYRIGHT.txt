@@ -1,0 +1,22 @@
+Files:
+    \assets\sprites\background.png
+    \assets\sprites\ui\paint_palette\*
+    \assets\sprites\entities\artwork.png
+    \assets\levels\*
+Copyright:
+    © 2019-2020 Richard Wells
+    <rwells1703@gmail.com>
+License:
+    CC BY-NC-SA 4.0
+
+Files:
+    \assets\sprites\ui\health_bar\*
+    \assets\sprites\entities\blob.png
+    \assets\sprites\entities\enemy.png
+    \assets\sprites\entities\fountain.png
+    \assets\sprites\entities\platform.png
+    \assets\sprites\entities\player.png
+Copyright:
+    © 2019 ChiAlphaTau
+License:
+    CC BY-NC-SA 4.0
